@@ -1,0 +1,265 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, ol, ul, li, footer, header, nav, section, summary, time{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline; }
+
+body {
+	line-height: 1.2; }
+
+ol, ul {
+	list-style: none; }
+
+h1, h2, h3, h4, h5, h6 {
+	clear: both; }
+
+blockquote, q {
+	quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block; }
+	
+pre {
+	display: block;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	white-space: -pre-wrap;
+	word-wrap: break-word; }
+
+mark, time, meter, progress {
+	display: inline; }
+
+html {
+	-webkit-font-smoothing: antialiased;
+	background-color: #3a3a3a; }
+
+body {
+	color: #4a4a4a;
+	font-size: 16px;
+	font-style: normal;
+	background-color: #ffffff;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	text-align: left; }
+  
+a:link, a:visited {
+	color: #009933;
+	text-decoration: none; }
+
+a:hover, a:active {
+	color: #2a2a2a; }
+	
+p {
+	margin-bottom: 20px; }
+
+.highlight {
+	margin-top: -10px; 
+	margin-bottom: 20px; }
+	
+.strong, .b {
+	font-weight: 600; }
+
+em, i {
+	background-color: #fffeca;
+	font-style: italic; }
+  
+hr {
+	background-color: #ffffff;
+	border: 0;
+	height: 1px;
+	margin: 24px; }
+
+h1 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0.6em 0; }
+
+h2 {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 0.8em 0; }
+
+h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 1em 0; }
+
+h4 {
+    font-size: 1em;
+    margin: 1.1em 0; }
+
+h5 {
+    font-size: 0.8em;
+    margin: 1.3em 0; }
+
+h6 {
+    font-size: 0.6em;
+    margin: 1.5em 0; }
+
+.wrapper {
+	width: 90%;
+	margin: 0 5%; }
+
+.header-container,
+.footer-container {
+	background: #3a3a3a; }
+
+.header-container header {
+    text-align: center;
+    padding: 10px 0; }
+    
+.header-container h1 {
+	display: inline-block;
+    margin-left: auto;
+    margin-right: auto; }
+
+.logo {
+	display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+	vertical-align: middle; }
+
+.header-container a:link, 
+.header-container a:hover, 
+.header-container a:visited, 
+.header-container a:active {
+	color: #4f98ca; }
+
+.feature-container {
+	background: #ececec;
+	padding: 10px 0; }
+
+.feature-container a:link, 
+.feature-container a:hover, 
+.feature-container a:visited, 
+.feature-container a:active {
+	color: #4f98ca; }
+
+.footer-container footer {
+    text-align: center; }
+    	
+.footer-container footer,
+.footer-container aside {
+    color: #ececec;
+    padding: 20px 0; }
+
+.footer-container a:link, 
+.footer-container a:hover, 
+.footer-container a:visited, 
+.footer-container a:active {
+	color: #4f98ca; }
+
+
+.excerpt p {
+	display: inline; }
+
+.navigation {
+	padding: 20px 0; }
+	
+.newer {
+	float: right; }
+
+.older {
+	float: left; }
+
+.post-author {
+	background: #ececec;
+	padding: 20px 0; }
+
+/* large screens */
+@media only screen and (min-width: 768px) {
+
+.wrapper {
+	width: 614px; /* 614px - 10% for margins */
+	margin: 0 auto; }
+
+.feature-container {
+	background: #ffffff; }
+    
+.post-author {
+	background: #ffffff; }
+    
+}
+
+/* extra large screens */
+@media only screen and (min-width: 1140px) {
+
+.wrapper {
+    width: 1083px; /* 1140px - 5% for margins */
+    margin: 0 auto;
+}
+
+.feature-container {
+	background: #ffffff; }
+    
+.post-author {
+	background: #ffffff; }
+	
+}
+
+/* tv screens */
+@media only screen and (min-width: 1440px) {
+
+.wrapper {
+    width: 1296px; /* 1140px - 5% for margins */
+    margin: 0 auto;
+}
+
+.feature-container {
+	background: #ffffff; }
+    
+.post-author {
+	background: #ffffff; }
+	
+}
+    		
+/* Code Snippets */
+
+pre {
+	border: 1px solid #cccccc;
+	background-color: #f9f9f9;
+	font-size: 0.9em;
+    font-weight: 600;
+	margin: 0 0.5em; 
+	padding: 0.5em 0.5em;}
+
+ul, ol {
+	margin: 0.5em 1.35em;
+	font-size: 0.9em;
+	font-weight: 400; }
+
+code {
+	padding: 0.5em 0.5em; }
+
+pre code {
+	border: none; }
+
+/* terminal */
+
+article pre.terminal {
+  border: 1px solid #000;
+  background-color: #333;
+  color: #FFF;
+}
+
+article pre.terminal code {
+  background-color: #333;
+}    	      		  	
+    	      		  		            
+/* Clearing floats */
+.clear:before,
+.clear:after {
+    content: " ";
+    display: table;
+}
+
+.clear:after {
+	clear: both;
+}

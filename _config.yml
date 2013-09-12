@@ -1,0 +1,14 @@
+name: Applico Engineering
+pygments: true
+
+exclude: [Gemfile, Gemfile.lock, Procfile, vendor]
+timezone: nil
+
+future: true
+show_drafts: nil
+
+excerpt_separator: "<!-- more -->"
+relative_permalinks: false
+permalink: /:title
+paginate: 10       # Posts per page on the blog index
+paginate_path: 'page:num'
