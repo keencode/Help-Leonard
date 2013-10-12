@@ -1,0 +1,55 @@
+/**
+\mainpage Welcome to the BorealiOS Web Service Library Documentation.
+
+Browse around and find the documentation for the classes that make up BorealiOS. We'll also cover, in detail, how to make the best use of BorealiOS.
+
+The Basics
+==========
+BorealiOS was designed to make it easy to dispatch web requests. It handles the starting/stopping/progress and only tells your code about the things you like. It also lets you use a delegate paradigm or a callback block paradigm allowing for you to pick the paradigm that best fits your application.
+
+Getting Started
+---------------
+Grab the source code and bring the five base files into your project. Make sure the two .m files are also added to your project's target. Here are the five files, along with some basic discussion of what they do.
+- WebServiceManager.h
+- WebServiceManager.m
+- WebServiceRequest.h
+- WebServiceRequest.m
+- WebServiceAuthProtocol.h
+
+WebServiceRequest
+-----------------
+WebServiceRequests are the base operation for defining where/what is going to happen. They are responsible for constructing an the NSURLRequest that gets submitted to the WebServiceManager. This class is designed to be subclassed so that very customized behavior for the creation of the NSURLRequest and the handling of the responses can be performed.
+
+Bare instances of this class can be created using the `initWithRequest:delegate:` or `initWithRequest:block` type methods. For example:
+
+	NSString *url = @"http://www.server.com/imagepath";
+
+	WebServiceCallbackBlock progressBlock = ^(id data,NSURLResponse *response,NSError *error) {
+	`//inform user about progress
+	};
+		
+	WebServiceCallbackBlock completionBlock = ^(id data,NSURLResponse *response,NSError *error) {
+		if (error) {
+			`//handle error
+		} else {
+			`//display image
+		}
+	};
+	NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+	WebServiceRequest *req = [[WebServiceRequest alloc] initWithURLRequest:urlReq
+										progress:progressBlock
+										completion:completionBlock];
+	[[WebServiceManager sharedManager] startAsync:req];
+
+The documentation for the WebServiceRequest has a discussion about subclassing.
+
+WebServiceManager
+-----------------
+The WebServiceManager implements the main logic of the library. All WebServiceRequests are submitted to one of its start methods. The application can also cancel requests by calling one of the cancel methods. This class implements a singleton that should be used for doing all work. It should not be subclassed.
+
+WebServiceAuthProtocol
+----------------------
+BorealiOS supports signing webrequests via an auth object that implements the WebServiceAuthProtocol. Objects adhering to the protocol can be registered with the WebServiceManager as valid for use on a service, where a service is identified by a key. To use the signing capability, the WebServiceManager's `start:authorizeForService:` methods should be used. The WebServiceManager will not perform login, that must be done by the application before signing can take place, but, if the auth object supports it, the WebServiceManager will attempt to refresh access tokens.
+
+*/
+
