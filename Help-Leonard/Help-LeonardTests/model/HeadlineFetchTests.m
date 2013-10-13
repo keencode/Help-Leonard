@@ -21,9 +21,33 @@
 
 @implementation HeadlineFetchTests
 
+- (NSString *)dbStore
+{
+    NSString *bundleID = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
+    return [NSString stringWithFormat:@"%@.sqlite", bundleID];
+}
+
+- (void)cleanAndResetupDB
+{
+    NSString *dbStore = [self dbStore];
+    NSError *error = nil;
+    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
+    [MagicalRecord cleanUp];
+    
+    if ([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]){
+//        [self setupDB];
+    }
+    else{
+        NSLog(@"An error has occurred while deleting %@", dbStore);
+        NSLog(@"Error description: %@", error.description);
+    }
+}
+
 - (void)setUp
 {
     [super setUp];
+    
+    [self cleanAndResetupDB];
     
     [MagicalRecord setDefaultModelFromClass:[Headline class]];
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
@@ -41,7 +65,6 @@
 {
     managedObjectContext = nil;
     headlinesJSON = nil;
-    [MagicalRecord cleanUp];
     
     [super tearDown];
 }

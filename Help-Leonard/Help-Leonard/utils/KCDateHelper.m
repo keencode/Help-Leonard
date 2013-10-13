@@ -21,8 +21,9 @@
 + (NSString *)formattedStringFromDate:(NSDate *)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"HH':'mm MM dd YYYY";
+    dateFormatter.dateFormat = @"MMMM dd, YYYY hh:mm a";
     dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     return [dateFormatter stringFromDate:date];
 }
 

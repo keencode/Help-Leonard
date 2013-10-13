@@ -105,16 +105,28 @@
 - (void)testDateFromFormattedStringShouldMatchExpectedSeconds
 {
     NSString *dateStr = @"2013-10-11T15:25:35Z";
-    NSString *expectedMins = @"25";
+    NSString *expectedSecs = @"35";
     
     NSDate *date = [KCDateHelper dateFromFormattedString:dateStr];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-    dateFormatter.dateFormat = @"mm";
-    NSString *minutes = [dateFormatter stringFromDate:date];
+    dateFormatter.dateFormat = @"ss";
+    NSString *seconds = [dateFormatter stringFromDate:date];
     
-    XCTAssertEqualObjects(minutes, expectedMins, @"minutes should match expectedMins");
+    XCTAssertEqualObjects(seconds, expectedSecs, @"seconds should match expectedSecs");
+}
+
+- (void)testFormattedStringFromDate
+{
+    NSString *dateStr = @"2013-10-11T15:25:35Z";
+    NSDate *date = [KCDateHelper dateFromFormattedString:dateStr];
+    NSString *expectedDateStr = @"October 11, 2013 11:25 AM";
+ 
+    NSString *formattedDateStr = [KCDateHelper formattedStringFromDate:date];
+    NSLog(@"formattedDateStr: %@", formattedDateStr);
+    
+    XCTAssertEqualObjects(formattedDateStr, expectedDateStr, @"formattedDateStr should match expectedDateStr");
 }
 
 @end

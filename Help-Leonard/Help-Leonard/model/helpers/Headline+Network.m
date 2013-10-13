@@ -103,7 +103,7 @@
         NSNumber *tempID = (NSNumber *)[info objectForKey:@"id"];
         NSDictionary *variable = @{@"HEADLINE_ID" : tempID};
         NSPredicate *localPredicate = [predicate predicateWithSubstitutionVariables:variable];
-        Headline *headline;
+        Headline *headline = nil;
         
         NSArray *results = [localHeadlines filteredArrayUsingPredicate:localPredicate];
         if ([results count] > 0) {

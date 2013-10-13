@@ -8,8 +8,6 @@
 
 #import "KCGlobals.h"
 
-static NSString * const kESPNAPIKey = @"zab45mrzk9jgpxazg4xya4tp";
-
 @implementation KCGlobals
 
 @end

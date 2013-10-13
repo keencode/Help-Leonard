@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString * const kESPNAPIKey;
+static NSString * const kESPNAPIKey = @"zab45mrzk9jgpxazg4xya4tp";
 
 @interface KCGlobals : NSObject
 

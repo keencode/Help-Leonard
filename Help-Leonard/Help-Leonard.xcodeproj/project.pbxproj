@@ -172,9 +172,9 @@
 		B82625761809125C00750CEA /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B82625771809125C00750CEA /* fixtures */,
 				B826257D1809125C00750CEA /* HeadlineFetchTests.m */,
 				B826257E1809125C00750CEA /* HeadlineNetworkTests.m */,
+				B82625771809125C00750CEA /* fixtures */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -300,7 +300,7 @@
 			children = (
 				B8DA94D718086C1100358659 /* Main.storyboard */,
 				B8DA950D18086F0C00358659 /* headlines */,
-				B8DA951118086FD000358659 /* sports */,
+				B8DA951118086FD000358659 /* teams */,
 				B8DA95151808701000358659 /* favorites */,
 			);
 			name = views;
@@ -326,13 +326,13 @@
 			name = headlines;
 			sourceTree = "<group>";
 		};
-		B8DA951118086FD000358659 /* sports */ = {
+		B8DA951118086FD000358659 /* teams */ = {
 			isa = PBXGroup;
 			children = (
 				B8DA95121808700700358659 /* KCSportsListViewController.h */,
 				B8DA95131808700700358659 /* KCSportsListViewController.m */,
 			);
-			name = sports;
+			name = teams;
 			sourceTree = "<group>";
 		};
 		B8DA95151808701000358659 /* favorites */ = {
