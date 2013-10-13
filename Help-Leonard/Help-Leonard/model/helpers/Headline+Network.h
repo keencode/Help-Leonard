@@ -13,9 +13,9 @@
 + (void)remoteHeadlinesOnSuccess:(void (^)(NSArray *headlines))successBlock
                        onFailure:(void (^)(NSError *error))failureBlock;
 
-+ (void)handleJSONResponse:(NSDictionary *)json
-                 onSuccess:(void (^)(NSArray *headlines))successBlock
-                 onFailure:(void (^)(NSError *error))failureBlock;
++ (void)processJSONResponse:(NSDictionary *)json
+                  onSuccess:(void (^)(NSArray *headlines))successBlock
+                  onFailure:(void (^)(NSError *error))failureBlock;
 
 + (BOOL)JSONIsValid:(id)json;
 

@@ -1,23 +1,22 @@
 //
-//  Headline+Network.m
+//  Sport+Network.m
 //  Help-Leonard
 //
-//  Created by Yee Peng Chia on 10/11/13.
+//  Created by Yee Peng Chia on 10/13/13.
 //  Copyright (c) 2013 Keen Code. All rights reserved.
 //
 
-#import "Headline+Network.h"
-#import "Headline+Fetch.h"
-#import "KCDateHelper.h"
+#import "Sport+Network.h"
 #import "WebServiceManager.h"
 #import "KCGlobals.h"
+#import "Sport+Fetch.h"
+#import "League+Network.h"
 
-@implementation Headline (Network)
+@implementation Sport (Network)
 
-+ (void)remoteHeadlinesOnSuccess:(void (^)(NSArray *headlines))successBlock
-                       onFailure:(void (^)(NSError *error))failureBlock
++ (void)remoteSportsOnSuccess:(void (^)(NSArray *))successBlock onFailure:(void (^)(NSError *))failureBlock
 {
-    NSString *url = [NSString stringWithFormat:@"http://api.espn.com/v1/sports/news/headlines?apikey=%@", kESPNAPIKey];
+    NSString *url = [NSString stringWithFormat:@"http://api.espn.com/v1/sports?apikey=%@", kESPNAPIKey];
     
     WebServiceCallbackBlock progressBlock = ^(id data, NSURLResponse *response, NSError *error) {
         //inform user about progress
@@ -31,7 +30,7 @@
                                                       options:NSJSONReadingMutableLeaves
                                                         error:&error];
             if (!error) {
-                [Headline processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+                [Sport processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
             } else {
                 NSLog(@"error loading fixture: %@", [error userInfo]);
             }
@@ -51,18 +50,18 @@
                   onSuccess:(void (^)(NSArray *headlines))successBlock
                   onFailure:(void (^)(NSError *error))failureBlock
 {
-    if ([Headline JSONIsValid:json]) {
-        NSArray *headlinesJSON = [json objectForKey:@"headlines"];
+    if ([Sport JSONIsValid:json]) {
+        NSArray *sportsJSON = [json objectForKey:@"sports"];
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.keencode.helpleonard.backgroundQueue", 0);
         dispatch_async(backgroundQueue, ^{
             NSManagedObjectContext *backgroundContext = [NSManagedObjectContext MR_contextForCurrentThread];
-            [Headline parseHeadlinesJSON:headlinesJSON inContext:backgroundContext];
+            [Sport parseSportsJSON:sportsJSON inContext:backgroundContext];
             
             [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *headlines = [Headline fetchRecentHeadlines];
-                    successBlock(headlines);
+                    NSArray *sports = [Sport localSportsInAlphabeticalOrder];
+                    successBlock(sports);
                 });
             }];
         });
@@ -76,10 +75,8 @@
     if ([json isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)json;
         
-        if ([[dict objectForKey:@"status"] isEqualToString:@"success"]) {
-            if ([dict objectForKey:@"headlines"]) {
-                return YES;
-            }
+        if ([dict objectForKey:@"sports"]) {
+            return YES;
         }
         
         return NO;
@@ -88,47 +85,46 @@
     return NO;
 }
 
-+ (NSArray *)parseHeadlinesJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context
++ (NSArray *)parseSportsJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context
 {
-    NSArray *localHeadlines = [Headline localHeadlinesFromJSON:json
-                                                     inContext:context];
+    NSArray *localSports = [Sport localSportsFromJSON:json inContext:context];
     
-    NSMutableArray *headlines = [NSMutableArray arrayWithCapacity:[json count]];
+    NSMutableArray *sports = [NSMutableArray arrayWithCapacity:[json count]];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid == $HEADLINE_ID"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid == $SPORT_ID"];
     
-    for (NSDictionary *info in json) {
-        NSNumber *tempID = (NSNumber *)[info objectForKey:@"id"];
-        NSDictionary *variable = @{@"HEADLINE_ID" : tempID};
+    for (NSDictionary *sportInfo in json) {
+        NSNumber *tempID = (NSNumber *)[sportInfo objectForKey:@"id"];
+        NSDictionary *variable = @{@"SPORT_ID" : tempID};
         NSPredicate *localPredicate = [predicate predicateWithSubstitutionVariables:variable];
-        Headline *headline = nil;
+        Sport *sport = nil;
         
-        NSArray *results = [localHeadlines filteredArrayUsingPredicate:localPredicate];
+        NSArray *results = [localSports filteredArrayUsingPredicate:localPredicate];
         if ([results count] > 0) {
-            headline = [results objectAtIndex:0];
+            sport = [results objectAtIndex:0];
         } else {
-            headline = [Headline MR_createInContext:context];
-            headline.uid = (NSNumber *)[info objectForKey:@"id"];
+            sport = [Sport MR_createInContext:context];
+            sport.uid = (NSNumber *)[sportInfo objectForKey:@"id"];
         }
         
-        [headline updateWithInfo:info];
-        [headlines addObject:headline];
+        [sport updateWithInfo:sportInfo];
+        
+        NSArray *leaguesInfo = [sportInfo objectForKey:@"leagues"];
+        for (NSDictionary *leagueInfo in leaguesInfo) {
+            League *league = [League MR_createInContext:context];
+            [league updateWithInfo:leagueInfo];
+            league.sport = sport;
+        }
+        
+        [sports addObject:sport];
     }
     
-    return [NSArray arrayWithArray:headlines];
+    return [NSArray arrayWithArray:sports];
 }
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-    self.title = (NSString *)[info objectForKey:@"title"];
-    self.headline = (NSString *)[info objectForKey:@"headline"];
-    self.ddescription = (NSString *)[info objectForKey:@"description"];
-    
-    NSString *published = (NSString *)[info objectForKey:@"published"];
-    self.published = [KCDateHelper dateFromFormattedString:published];
-    
-    NSString *lastModified = (NSString *)[info objectForKey:@"lastModified"];
-    self.lastModified = [KCDateHelper dateFromFormattedString:lastModified];
+    self.name = (NSString *)[info objectForKey:@"name"];
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "KCSportsListViewController.h"
+#import "Sport+Network.h"
+#import "League.h"
 
 @interface KCSportsListViewController ()
 
@@ -27,11 +29,12 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [Sport remoteSportsOnSuccess:^(NSArray *sports) {
+        self.sports = sports;
+        [self.tableView reloadData];
+    } onFailure:^(NSError *error) {
+        //
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,24 +47,29 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return [self.sports count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    Sport *sport = [self.sports objectAtIndex:section];
+    return [sport.leagues count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    Sport *sport = [self.sports objectAtIndex:section];
+    return sport.name;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"LeagueCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    Sport *sport = [self.sports objectAtIndex:indexPath.section];
+    League *league = [[sport.leagues allObjects] objectAtIndex:indexPath.row];
+    cell.textLabel.text = league.name;
     
     return cell;
 }

@@ -14,4 +14,7 @@
 - (NSData *)invalidDataFromHeadlinesFixture;
 - (NSData *)errorDataFromHeadlinesFixture;
 
+- (NSData *)validDataFromSportsFixture;
+- (NSData *)invalidDataFromSportsFixture;
+
 @end

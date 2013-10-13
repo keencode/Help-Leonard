@@ -143,4 +143,17 @@
     XCTAssertEqual([recentHeadlines count], expectedHeadlinesCount, @"localHeadlines count should equal expectedHeadlinesCount");
 }
 
+- (void)testFetchRecentHeadlinesShouldReturnHeadlinesInReverseChonologicalOrderByPublishDate
+{
+    [Headline parseHeadlinesJSON:headlinesJSON inContext:managedObjectContext];
+    
+    NSArray *recentHeadlines = [Headline fetchRecentHeadlines];
+    Headline *firstHeadline = [recentHeadlines objectAtIndex:0];
+    NSLog(@"firstHeadline: %@", firstHeadline.published);
+    Headline *secondHeadline = [recentHeadlines objectAtIndex:1];
+    NSLog(@"secondHeadline: %@", secondHeadline.published);
+    
+    XCTAssertTrue(([firstHeadline.published compare:secondHeadline.published] == NSOrderedDescending), @"firstHeadline publish date should be more recent that that of secondHeadline");
+}
+
 @end

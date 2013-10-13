@@ -31,4 +31,14 @@
     return [self dataFromFixtureWithName:@"headlines_error"];
 }
 
+- (NSData *)validDataFromSportsFixture
+{
+    return [self dataFromFixtureWithName:@"sports"];
+}
+
+- (NSData *)invalidDataFromSportsFixture
+{
+    return [self dataFromFixtureWithName:@"sports_invalid"];
+}
+
 @end

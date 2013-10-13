@@ -1,0 +1,20 @@
+{
+  "links": {
+    "api": {
+      "notes": {
+        "href": "http://api.espn.com/v1/sports/news/notes"
+      },
+      "headlines": {
+        "href": "http://api.espn.com/v1/sports/news/headlines"
+      },
+      "events": {
+        "href": "http://api.espn.com/v1/sports/events"
+      },
+      "news": {
+        "href": "http://api.espn.com/v1/sports/news"
+      }
+    }
+  },
+  "timestamp": "2013-10-13T20:56:50Z",
+  "status": "success"
+}

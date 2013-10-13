@@ -10,4 +10,6 @@
 
 @interface KCSportsListViewController : UITableViewController
 
+@property (nonatomic, strong) NSArray *sports;
+
 @end
