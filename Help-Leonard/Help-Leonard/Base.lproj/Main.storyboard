@@ -33,11 +33,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HeadlineCell" textLabel="KSA-Y5-7zY" detailTextLabel="mfZ-sD-kYG" style="IBUITableViewCellStyleSubtitle" id="nUL-p9-iP6">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HeadlineCell" textLabel="KSA-Y5-7zY" detailTextLabel="mfZ-sD-kYG" style="IBUITableViewCellStyleSubtitle" id="nUL-p9-iP6">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nUL-p9-iP6" id="Ax7-4a-E2O">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KSA-Y5-7zY">
@@ -56,6 +56,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="OpP-RH-ZpK" kind="push" identifier="showHeadlineDetail" id="WaZ-Xh-gcm"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -69,7 +72,36 @@
             </objects>
             <point key="canvasLocation" x="538" y="227"/>
         </scene>
-        <!--Sports List View Controller - Teams-->
+        <!--Headline Detail View Controller-->
+        <scene sceneID="zWh-SM-X4u">
+            <objects>
+                <viewController id="OpP-RH-ZpK" customClass="KCHeadlineDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GQf-SM-wyR"/>
+                        <viewControllerLayoutGuide type="bottom" id="5Pm-yr-KuK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OWB-cG-qAj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-MJ-SeP">
+                                <rect key="frame" x="0.0" y="64" width="320" height="456"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ewS-kY-AFT"/>
+                    <connections>
+                        <outlet property="webView" destination="WSQ-MJ-SeP" id="rdR-w0-tQ9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K37-mF-NkT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976" y="227"/>
+        </scene>
+        <!--Sports List View Controller - Sports-->
         <scene sceneID="idZ-qa-aMk">
             <objects>
                 <tableViewController id="H8R-DU-to3" customClass="KCSportsListViewController" sceneMemberID="viewController">
@@ -78,13 +110,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LeagueCell" id="nvb-rB-1ka">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LeagueCell" id="nvb-rB-1ka">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nvb-rB-1ka" id="JP9-Ga-bXt">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="a0h-6q-4JY" kind="push" identifier="showTeams" id="72N-GY-e7N"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -92,11 +127,40 @@
                             <outlet property="delegate" destination="H8R-DU-to3" id="8AZ-gI-4Y1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Teams" id="CWr-dz-dEz"/>
+                    <navigationItem key="navigationItem" title="Sports" id="CWr-dz-dEz"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xmH-6F-DY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="538" y="887"/>
+        </scene>
+        <!--Teams List View Controller-->
+        <scene sceneID="CeW-Fe-sHn">
+            <objects>
+                <tableViewController id="a0h-6q-4JY" customClass="KCTeamsListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="umC-OZ-gxI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TeamCell" id="s8y-fE-oCc">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s8y-fE-oCc" id="X8a-sE-Cj8">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="a0h-6q-4JY" id="fLh-zE-yyu"/>
+                            <outlet property="delegate" destination="a0h-6q-4JY" id="8Cx-5s-6xm"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="AOB-92-kLN"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JtA-8l-JbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976" y="887"/>
         </scene>
         <!--Navigation Controller - Headlines-->
         <scene sceneID="O8U-aI-VIK">

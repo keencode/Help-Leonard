@@ -7,11 +7,20 @@
 //
 
 #import "Team.h"
+#import "League.h"
 
 
 @implementation Team
 
 @dynamic name;
+@dynamic teamID;
+@dynamic location;
+@dynamic nickname;
+@dynamic newsURL;
+@dynamic notesURL;
+@dynamic teamsURL;
+@dynamic abbreviation;
+@dynamic favorite;
 @dynamic uid;
 @dynamic league;
 

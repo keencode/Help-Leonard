@@ -10,6 +10,7 @@
 #import "WebServiceManager.h"
 #import "KCGlobals.h"
 #import "Sport+Fetch.h"
+#import "League+Fetch.h"
 #import "League+Network.h"
 
 @implementation Sport (Network)
@@ -60,7 +61,7 @@
             
             [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *sports = [Sport localSportsInAlphabeticalOrder];
+                    NSArray *sports = [Sport fetchSportsInAlphabeticalOrder];
                     successBlock(sports);
                 });
             }];
@@ -88,30 +89,44 @@
 + (NSArray *)parseSportsJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context
 {
     NSArray *localSports = [Sport localSportsFromJSON:json inContext:context];
+    NSArray *localLeagues = [League localLeaguesFromJSON:json inContext:context];
     
     NSMutableArray *sports = [NSMutableArray arrayWithCapacity:[json count]];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid == $SPORT_ID"];
+    NSPredicate *sportPredicate = [NSPredicate predicateWithFormat:@"uid == $SPORT_ID"];
+    NSPredicate *leaguePredicate = [NSPredicate predicateWithFormat:@"abbreviation == $LEAGUE_ABBREV"];
     
     for (NSDictionary *sportInfo in json) {
-        NSNumber *tempID = (NSNumber *)[sportInfo objectForKey:@"id"];
-        NSDictionary *variable = @{@"SPORT_ID" : tempID};
-        NSPredicate *localPredicate = [predicate predicateWithSubstitutionVariables:variable];
+        NSNumber *sportID = (NSNumber *)[sportInfo objectForKey:@"id"];
+        NSDictionary *sportVar = @{@"SPORT_ID" : sportID};
+        NSPredicate *localSportPredicate = [sportPredicate predicateWithSubstitutionVariables:sportVar];
+        NSArray *results = [localSports filteredArrayUsingPredicate:localSportPredicate];
         Sport *sport = nil;
         
-        NSArray *results = [localSports filteredArrayUsingPredicate:localPredicate];
         if ([results count] > 0) {
             sport = [results objectAtIndex:0];
         } else {
             sport = [Sport MR_createInContext:context];
-            sport.uid = (NSNumber *)[sportInfo objectForKey:@"id"];
+            sport.uid = sportID;
         }
         
         [sport updateWithInfo:sportInfo];
         
         NSArray *leaguesInfo = [sportInfo objectForKey:@"leagues"];
         for (NSDictionary *leagueInfo in leaguesInfo) {
-            League *league = [League MR_createInContext:context];
+            NSString *leagueAbbrev = (NSString *)[leagueInfo objectForKey:@"abbreviation"];
+            NSDictionary *sportVar = @{@"LEAGUE_ABBREV" : leagueAbbrev};
+            NSPredicate *localLeaguePredicate = [leaguePredicate predicateWithSubstitutionVariables:sportVar];
+            NSArray *results = [localLeagues filteredArrayUsingPredicate:localLeaguePredicate];
+            League *league = nil;
+
+            if ([results count] > 0) {
+                league = [results objectAtIndex:0];
+            } else {
+                league = [League MR_createInContext:context];
+                league.abbreviation = leagueAbbrev;
+            }
+
             [league updateWithInfo:leagueInfo];
             league.sport = sport;
         }

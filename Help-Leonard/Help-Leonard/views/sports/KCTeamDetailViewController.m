@@ -1,21 +1,18 @@
 //
-//  KCSportsListViewController.m
+//  KCTeamDetailViewController.m
 //  Help-Leonard
 //
-//  Created by Yee Peng Chia on 10/11/13.
+//  Created by Yee Peng Chia on 10/13/13.
 //  Copyright (c) 2013 Keen Code. All rights reserved.
 //
 
-#import "KCSportsListViewController.h"
-#import "Sport+Network.h"
-#import "League.h"
-#import "KCTeamsListViewController.h"
+#import "KCTeamDetailViewController.h"
 
-@interface KCSportsListViewController ()
+@interface KCTeamDetailViewController ()
 
 @end
 
-@implementation KCSportsListViewController
+@implementation KCTeamDetailViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -30,12 +27,11 @@
 {
     [super viewDidLoad];
 
-    [Sport remoteSportsOnSuccess:^(NSArray *sports) {
-        self.sports = sports;
-        [self.tableView reloadData];
-    } onFailure:^(NSError *error) {
-        //
-    }];
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,29 +44,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.sports count];
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    Sport *sport = [self.sports objectAtIndex:section];
-    return [sport.leagues count];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    Sport *sport = [self.sports objectAtIndex:section];
-    return sport.name;
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"LeagueCell";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    Sport *sport = [self.sports objectAtIndex:indexPath.section];
-    League *league = [[sport.leagues allObjects] objectAtIndex:indexPath.row];
-    cell.textLabel.text = league.name;
+    // Configure the cell...
     
     return cell;
 }
@@ -114,20 +105,16 @@
 }
 */
 
+/*
 #pragma mark - Navigation
 
+// In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"showTeams"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        KCTeamsListViewController *destViewController = segue.destinationViewController;
-
-        Sport *sport = [self.sports objectAtIndex:indexPath.section];
-        destViewController.sportName = sport.name;
-        
-        League *league = [[sport.leagues allObjects] objectAtIndex:indexPath.row];
-        destViewController.league = league;
-    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
+
+ */
 
 @end

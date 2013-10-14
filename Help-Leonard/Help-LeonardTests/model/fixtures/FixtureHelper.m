@@ -41,4 +41,14 @@
     return [self dataFromFixtureWithName:@"sports_invalid"];
 }
 
+- (NSData *)validDataFromTeamsFixture
+{
+    return [self dataFromFixtureWithName:@"teams"];
+}
+
+- (NSData *)invalidDataFromTeamsFixture
+{
+    return [self dataFromFixtureWithName:@"teams_invalid"];
+}
+
 @end

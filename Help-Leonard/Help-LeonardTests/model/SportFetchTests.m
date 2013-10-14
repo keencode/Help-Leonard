@@ -138,7 +138,7 @@
     [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
     NSUInteger expectedSportsCount = [sportsJSON count];
     
-    NSArray *localSports = [Sport localSportsInAlphabeticalOrder];
+    NSArray *localSports = [Sport fetchSportsInAlphabeticalOrder];
     
     XCTAssertEqual([localSports count], expectedSportsCount, @"localSports count should equal expectedSportsCount");
 }
@@ -147,7 +147,7 @@
 {
     [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
     
-    NSArray *localSports = [Sport localSportsInAlphabeticalOrder];
+    NSArray *localSports = [Sport fetchSportsInAlphabeticalOrder];
     Sport *firstSport = [localSports objectAtIndex:0];
     Sport *secondSport = [localSports objectAtIndex:2];
     

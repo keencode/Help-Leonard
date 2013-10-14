@@ -9,11 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class League;
 
 @interface Team : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSManagedObject *league;
+@property (nonatomic, retain) NSNumber * teamID;
+@property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSString * nickname;
+@property (nonatomic, retain) NSString * newsURL;
+@property (nonatomic, retain) NSString * notesURL;
+@property (nonatomic, retain) NSString * teamsURL;
+@property (nonatomic, retain) NSString * abbreviation;
+@property (nonatomic, retain) NSNumber * favorite;
+@property (nonatomic, retain) NSString * uid;
+@property (nonatomic, retain) League *league;
 
 @end

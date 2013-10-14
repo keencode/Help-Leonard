@@ -1,0 +1,24 @@
+{
+  "sports": [
+    {
+      "id": 1,
+      "uid": "s:1",
+      "name": "baseball",
+      "leagues": [
+        {
+          "abbreviation": "mlb",
+          "uid": "s:1~l:10",
+          "shortName": "MLB",
+          "id": 10,
+          "groupId": 9,
+          "name": "Major League Baseball"
+        }
+      ]
+    }
+  ],
+  "resultsOffset": 0,
+  "timestamp": "2013-10-13T23:35:57Z",
+  "resultsCount": 30,
+  "status": "success",
+  "resultsLimit": 50
+}

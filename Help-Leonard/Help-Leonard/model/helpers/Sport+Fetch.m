@@ -36,13 +36,12 @@
     return [Sport fetchSportsWithIDs:ids inContext:context];
 }
 
-+ (NSArray *)localSportsInAlphabeticalOrder
++ (NSArray *)fetchSportsInAlphabeticalOrder
 {
     NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
     NSFetchRequest *request = [Sport MR_requestAllInContext:defaultContext];
     [request setFetchBatchSize:kBatchSize];
     return [Sport MR_findAllSortedBy:@"name" ascending:YES inContext:defaultContext];
-    
 }
 
 @end

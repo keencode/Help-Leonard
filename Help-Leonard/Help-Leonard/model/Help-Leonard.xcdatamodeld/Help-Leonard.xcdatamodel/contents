@@ -6,10 +6,10 @@
         <attribute name="lastModified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="published" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="uid" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="League" representedClassName="League" syncable="YES">
-        <attribute name="abbreviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="abbreviation" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -18,12 +18,20 @@
     </entity>
     <entity name="Sport" representedClassName="Sport" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="uid" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="leagues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="League" inverseName="sport" inverseEntity="League" syncable="YES"/>
     </entity>
     <entity name="Team" representedClassName="Team" syncable="YES">
+        <attribute name="abbreviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favorite" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="newsURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notesURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teamID" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="teamsURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="league" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="League" inverseName="teams" inverseEntity="League" syncable="YES"/>
     </entity>
     <elements>

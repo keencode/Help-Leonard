@@ -14,6 +14,7 @@
 {
     self.uid = (NSNumber *)[info objectForKey:@"id"];
     self.name = (NSString *)[info objectForKey:@"name"];
+//    self.abbreviation = (NSString *)[info objectForKey:@"abbreviation"];
 }
 
 @end

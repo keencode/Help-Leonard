@@ -17,4 +17,7 @@
 - (NSData *)validDataFromSportsFixture;
 - (NSData *)invalidDataFromSportsFixture;
 
+- (NSData *)validDataFromTeamsFixture;
+- (NSData *)invalidDataFromTeamsFixture;
+
 @end

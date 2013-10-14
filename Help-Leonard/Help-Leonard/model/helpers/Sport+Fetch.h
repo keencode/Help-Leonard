@@ -13,6 +13,6 @@
 + (NSArray *)IDsFromJSON:(NSArray *)json;
 + (NSArray *)fetchSportsWithIDs:(NSArray *)ids inContext:(NSManagedObjectContext *)context;
 + (NSArray *)localSportsFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context;
-+ (NSArray *)localSportsInAlphabeticalOrder;
++ (NSArray *)fetchSportsInAlphabeticalOrder;
 
 @end
