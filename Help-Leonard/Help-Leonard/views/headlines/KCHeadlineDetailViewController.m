@@ -27,8 +27,9 @@
 {
     [super viewDidLoad];
     
-	NSString *content = [NSString stringWithFormat:@"<h1>%@</h1><p>%@</p>", self.headline.headline, self.headline.ddescription];
-    [self.webView loadHTMLString:content baseURL:nil];
+    NSURL *url = [NSURL URLWithString:self.headline.mobileURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
 }
 
 - (void)didReceiveMemoryWarning

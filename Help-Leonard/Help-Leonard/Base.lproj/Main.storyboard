@@ -84,13 +84,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-MJ-SeP">
-                                <rect key="frame" x="0.0" y="64" width="320" height="456"/>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-MJ-SeP">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WSQ-MJ-SeP" firstAttribute="leading" secondItem="OWB-cG-qAj" secondAttribute="leading" id="Fl2-Q0-ADn"/>
+                            <constraint firstItem="WSQ-MJ-SeP" firstAttribute="top" secondItem="OWB-cG-qAj" secondAttribute="top" id="TDE-uT-iLq"/>
+                            <constraint firstAttribute="trailing" secondItem="WSQ-MJ-SeP" secondAttribute="trailing" id="hIa-eM-WHc"/>
+                            <constraint firstAttribute="bottom" secondItem="WSQ-MJ-SeP" secondAttribute="bottom" id="rvC-OZ-nHZ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ewS-kY-AFT"/>
                     <connections>
@@ -174,11 +180,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsCell" textLabel="xHd-jK-Xra" detailTextLabel="J9i-sh-QWY" style="IBUITableViewCellStyleSubtitle" id="r16-mR-fo6">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsCell" textLabel="xHd-jK-Xra" detailTextLabel="J9i-sh-QWY" style="IBUITableViewCellStyleSubtitle" id="r16-mR-fo6">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r16-mR-fo6" id="jvz-kE-c72">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xHd-jK-Xra">
@@ -197,6 +203,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="OpP-RH-ZpK" kind="push" identifier="showTeamHeadlineDetail" id="zXu-yL-jjs"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -331,4 +340,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="zXu-yL-jjs"/>
+    </inferredMetricsTieBreakers>
 </document>

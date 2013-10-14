@@ -174,6 +174,22 @@
     XCTAssertEqualObjects(headline.lastModified, expectedLastModifiedDate, @"The lastModified property should match expectedLastModifiedDate");
 }
 
+- (void)testUpdateWithInfoShouldAssignTheCorrectMobileURL
+{
+    NSData *testData = [fixtureHelper validDataFromHeadlinesFixture];
+    NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:testData
+                                                             options:NSJSONReadingMutableLeaves
+                                                               error:nil];
+    NSArray *headlinesJSON = [jsonData objectForKey:@"headlines"];
+    NSDictionary *headlineInfo = [headlinesJSON objectAtIndex:1];
+    NSDate *expectedURL = [[[headlineInfo objectForKey:@"links"] objectForKey:@"mobile"] objectForKey:@"href"];
+    
+    Headline *headline = [Headline MR_createInContext:managedObjectContext];
+    [headline updateWithInfo:headlineInfo];
+    
+    XCTAssertEqualObjects(headline.mobileURL, expectedURL, @"The mobileURL property should match expectedURL");
+}
+
 - (void)testParseJSONShouldCreateCorrectNumberOfHeadlines
 {
     NSData *testData = [fixtureHelper validDataFromHeadlinesFixture];

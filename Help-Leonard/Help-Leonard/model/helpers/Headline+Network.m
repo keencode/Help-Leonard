@@ -134,6 +134,7 @@
     self.title = (NSString *)[info objectForKey:@"title"];
     self.headline = (NSString *)[info objectForKey:@"headline"];
     self.ddescription = (NSString *)[info objectForKey:@"description"];
+    self.mobileURL = (NSString *)[[[info objectForKey:@"links"] objectForKey:@"mobile"] objectForKey:@"href"];
     
     NSString *published = (NSString *)[info objectForKey:@"published"];
     self.published = [KCDateHelper dateFromFormattedString:published];
