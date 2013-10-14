@@ -10,6 +10,15 @@
 
 static NSString * const kESPNAPIKey = @"zab45mrzk9jgpxazg4xya4tp";
 
+static NSString * const kNetworkErrorDomain = @"network.error.keencode.com";
+
+static NSString * const kUserInfoDescriptionKey = @"description";
+
+typedef enum {
+    KCInvalidStatusCode,
+    KCInvalidJSON
+} KCNetworkErrorCode;
+
 @interface KCGlobals : NSObject
 
 @end

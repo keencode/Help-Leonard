@@ -1,19 +1,21 @@
 //
-//  KCTeamsListViewController.m
+//  KCTeamNewsViewController.m
 //  Help-Leonard
 //
 //  Created by Yee Peng Chia on 10/13/13.
 //  Copyright (c) 2013 Keen Code. All rights reserved.
 //
 
-#import "KCTeamsListViewController.h"
+#import "KCTeamNewsViewController.h"
 #import "Team+Network.h"
+#import "Headline.h"
+#import "KCDateHelper.h"
 
-@interface KCTeamsListViewController ()
+@interface KCTeamNewsViewController ()
 
 @end
 
-@implementation KCTeamsListViewController
+@implementation KCTeamNewsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,14 +29,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.title = self.league.name;
-    
-    [Team remoteTeamsForSportName:self.sportName leagueName:self.league.abbreviation onSuccess:^(NSArray *teams) {
-        self.teams = teams;
+
+    [Team remoteNewsForTeamURL:self.team.newsURL onSuccess:^(NSArray *headlines) {
+        self.headlines = headlines;
         [self.tableView reloadData];
     } onFailure:^(NSError *error) {
-        //;
+        //
     }];
 }
 
@@ -53,16 +53,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.teams count];
+    return [self.headlines count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TeamCell";
+    static NSString *CellIdentifier = @"NewsCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    Team *team = [self.teams objectAtIndex:indexPath.row];
-    cell.textLabel.text = team.name;
+    Headline *headline = [self.headlines objectAtIndex:indexPath.row];
+    cell.textLabel.text = headline.headline;
+    cell.detailTextLabel.text = [KCDateHelper formattedStringFromDate:headline.published];
     
     return cell;
 }

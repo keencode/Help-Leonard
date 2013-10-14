@@ -12,15 +12,29 @@
 
 + (void)remoteTeamsForSportName:(NSString *)sportName
                      leagueName:(NSString *)leagueName
-                      onSuccess:(void (^)(NSArray *headlines))successBlock
+                      onSuccess:(void (^)(NSArray *teams))successBlock
                       onFailure:(void (^)(NSError *error))failureBlock;
+
++ (void)remoteDetailsForTeamURL:(NSString *)url
+                      onSuccess:(void (^)(NSArray *news))successBlock
+                      onFailure:(void (^)(NSError *error))failureBlock;
+
++ (void)remoteNewsForTeamURL:(NSString *)url
+                   onSuccess:(void (^)(NSArray *headlines))successBlock
+                   onFailure:(void (^)(NSError *error))failureBlock;
 
 + (NSString *)apiURLForSportName:(NSString *)sportName
                       leagueName:(NSString *)leagueName;
 
++ (NSString *)newsURLWithAPIKey:(NSString *)newsURL;
+
 + (void)processJSONResponse:(NSDictionary *)json
-                  onSuccess:(void (^)(NSArray *headlines))successBlock
+                  onSuccess:(void (^)(NSArray *teams))successBlock
                   onFailure:(void (^)(NSError *error))failureBlock;
+
+//+ (void)processNewsJSONResponse:(NSDictionary *)json
+//                      onSuccess:(void (^)(NSArray *teams))successBlock
+//                      onFailure:(void (^)(NSError *error))failureBlock;
 
 + (BOOL)JSONIsValid:(id)json;
 
@@ -29,5 +43,6 @@
 + (NSArray *)parseTeamsJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context;
 
 - (void)updateWithInfo:(NSDictionary *)info;
+
 
 @end

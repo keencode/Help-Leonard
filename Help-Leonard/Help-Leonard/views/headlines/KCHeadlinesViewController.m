@@ -37,7 +37,7 @@
         self.headlines = headlines;
         [self.tableView reloadData];
     } onFailure:^(NSError *error) {
-        //
+        [self handleError:error];
     }];
 }
 
@@ -45,6 +45,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleError:(NSError *)error
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"Sorry, data is not available at this time."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
 #pragma mark - Table view data source
@@ -116,7 +126,7 @@
     if ([segue.identifier isEqualToString:@"showHeadlineDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         KCHeadlineDetailViewController *destViewController = segue.destinationViewController;
-        destViewController.headline = [self.headlines objectAtIndex:indexPath.section];
+        destViewController.headline = [self.headlines objectAtIndex:indexPath.row];
     }
 }
 

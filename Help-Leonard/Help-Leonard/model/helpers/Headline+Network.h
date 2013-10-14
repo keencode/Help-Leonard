@@ -8,6 +8,11 @@
 
 #import "Headline.h"
 
+typedef enum {
+    KCHeadlineInvalidStatusCode,
+    KInvalidJSON
+} KCTeamNetworkErrorCode;
+
 @interface Headline (Network)
 
 + (void)remoteHeadlinesOnSuccess:(void (^)(NSArray *headlines))successBlock

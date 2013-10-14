@@ -10,12 +10,13 @@
 #import "WebServiceManager.h"
 #import "KCGlobals.h"
 #import "Team+Fetch.h"
+#import "Headline+Network.h"
 
 @implementation Team (Network)
 
 + (void)remoteTeamsForSportName:(NSString *)sportName
                      leagueName:(NSString *)leagueName
-                      onSuccess:(void (^)(NSArray *headlines))successBlock
+                      onSuccess:(void (^)(NSArray *teams))successBlock
                       onFailure:(void (^)(NSError *error))failureBlock
 {
     NSString *url = [Team apiURLForSportName:sportName leagueName:leagueName];
@@ -26,15 +27,24 @@
     
     WebServiceCallbackBlock completionBlock = ^(id data, NSURLResponse *response, NSError *error) {
         if (error) {
-            NSLog(@"error: %@", error);
+            failureBlock(error);
         } else {
-            id json = [NSJSONSerialization JSONObjectWithData:data
-                                                      options:NSJSONReadingMutableLeaves
-                                                        error:&error];
-            if (!error) {
-                [Team processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            int responseStatusCode = [httpResponse statusCode];
+            
+            if (responseStatusCode == 200) {
+                id json = [NSJSONSerialization JSONObjectWithData:data
+                                                          options:NSJSONReadingMutableLeaves
+                                                            error:&error];
+                if (!error) {
+                    [Team processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+                } else {
+                    failureBlock(error);
+                }
             } else {
-                NSLog(@"error loading fixture: %@", [error userInfo]);
+                NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid Status Code"};
+                NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
+                failureBlock(error);
             }
         }
     };
@@ -56,7 +66,7 @@
 }
 
 + (void)processJSONResponse:(NSDictionary *)json
-                  onSuccess:(void (^)(NSArray *headlines))successBlock
+                  onSuccess:(void (^)(NSArray *teams))successBlock
                   onFailure:(void (^)(NSError *error))failureBlock
 {
     if ([Team JSONIsValid:json]) {
@@ -76,7 +86,9 @@
             }];
         });
     } else {
-        // TODO: Handle invalid JSON error
+        NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
+        NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
+        failureBlock(error);
     }
 }
 
@@ -158,5 +170,78 @@
     self.newsURL = (NSString *)[[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"news"] objectForKey:@"href"];
     self.notesURL = (NSString *)[[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"notes"] objectForKey:@"href"];
 }
+
++ (void)remoteDetailsForTeamURL:(NSString *)url
+                      onSuccess:(void (^)(NSArray *news))successBlock
+                      onFailure:(void (^)(NSError *error))failureBlock
+{
+    
+}
+
++ (void)remoteNewsForTeamURL:(NSString *)url
+                   onSuccess:(void (^)(NSArray *headlines))successBlock
+                   onFailure:(void (^)(NSError *error))failureBlock
+{
+    NSString *newsURL = [Team newsURLWithAPIKey:url];
+    
+    WebServiceCallbackBlock progressBlock = ^(id data, NSURLResponse *response, NSError *error) {
+        //inform user about progress
+    };
+    
+    WebServiceCallbackBlock completionBlock = ^(id data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"error: %@", error);
+        } else {
+            id json = [NSJSONSerialization JSONObjectWithData:data
+                                                      options:NSJSONReadingMutableLeaves
+                                                        error:&error];
+            if (!error) {
+                [Headline processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+            } else {
+                NSLog(@"error loading fixture: %@", [error userInfo]);
+            }
+        }
+    };
+    
+    NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:newsURL]];
+    [urlReq setHTTPMethod:@"GET"];
+    
+    WebServiceRequest *req = [[WebServiceRequest alloc] initWithURLRequest:urlReq
+                                                                  progress:progressBlock
+                                                                completion:completionBlock];
+    [[WebServiceManager sharedManager] startAsync:req];
+}
+
++ (NSString *)newsURLWithAPIKey:(NSString *)newsURL
+{
+    return [NSString stringWithFormat:@"%@?apikey=%@", newsURL, kESPNAPIKey];
+}
+
+//+ (void)processNewsJSONResponse:(NSDictionary *)json
+//                      onSuccess:(void (^)(NSArray *teams))successBlock
+//                      onFailure:(void (^)(NSError *error))failureBlock
+//{
+//    if ([Headline JSONIsValid:json]) {
+//        NSArray *teamsJSON = [Team teamsJSONFromResponse:json];
+//        
+//        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.keencode.helpleonard.backgroundQueue", 0);
+//        dispatch_async(backgroundQueue, ^{
+//            NSManagedObjectContext *backgroundContext = [NSManagedObjectContext MR_contextForCurrentThread];
+//            [Team parseTeamsJSON:teamsJSON inContext:backgroundContext];
+//            
+//            [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    NSArray *ids = [Team IDsFromJSON:teamsJSON];
+//                    NSArray *sortedTeams = [Team sortedTeamsWithIDs:ids];
+//                    successBlock(sortedTeams);
+//                });
+//            }];
+//        });
+//    } else {
+//        NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
+//        NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCTeamInvalidJSON userInfo:userInfo];
+//        failureBlock(error);
+//    }
+//}
 
 @end

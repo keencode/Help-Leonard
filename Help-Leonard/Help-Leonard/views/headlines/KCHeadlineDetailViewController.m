@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     
-	NSString *content = [NSString stringWithFormat:@"<h1>%@</h1><p>%@</p>", self.headline.title, self.headline.ddescription];
+	NSString *content = [NSString stringWithFormat:@"<h1>%@</h1><p>%@</p>", self.headline.headline, self.headline.ddescription];
     [self.webView loadHTMLString:content baseURL:nil];
 }
 

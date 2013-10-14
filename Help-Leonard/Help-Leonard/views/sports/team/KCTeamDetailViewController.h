@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Team.h"
 
 @interface KCTeamDetailViewController : UITableViewController
+
+@property (nonatomic, strong) Team *team;
 
 @end

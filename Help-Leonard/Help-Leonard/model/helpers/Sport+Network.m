@@ -25,15 +25,24 @@
     
     WebServiceCallbackBlock completionBlock = ^(id data, NSURLResponse *response, NSError *error) {
         if (error) {
-            NSLog(@"error: %@", error);
+            failureBlock(error);
         } else {
-            id json = [NSJSONSerialization JSONObjectWithData:data
-                                                      options:NSJSONReadingMutableLeaves
-                                                        error:&error];
-            if (!error) {
-                [Sport processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            int responseStatusCode = [httpResponse statusCode];
+
+            if (responseStatusCode == 200) {
+                id json = [NSJSONSerialization JSONObjectWithData:data
+                                                          options:NSJSONReadingMutableLeaves
+                                                            error:&error];
+                if (!error) {
+                    [Sport processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+                } else {
+                    failureBlock(error);
+                }
             } else {
-                NSLog(@"error loading fixture: %@", [error userInfo]);
+                NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid Status Code"};
+                NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
+                failureBlock(error);
             }
         }
     };
@@ -67,7 +76,9 @@
             }];
         });
     } else {
-        // TODO: Handle invalid JSON error
+        NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
+        NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
+        failureBlock(error);
     }
 }
 
