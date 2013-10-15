@@ -104,7 +104,7 @@
     XCTAssertTrue([teamsJSON isKindOfClass:[NSArray class]], @"teams should be of NSArray type");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedName
+- (void)testUpdateWithInfoShouldAssignCorrectName
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -119,7 +119,7 @@
     XCTAssertEqualObjects(team.name, expectedName, @"team name property should match expectedName");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedLocation
+- (void)testUpdateWithInfoShouldAssignCorrectLocation
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -134,7 +134,7 @@
     XCTAssertEqualObjects(team.location, expectedLocation, @"team location property should match expectedLocation");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedAbbreviation
+- (void)testUpdateWithInfoShouldAssignCorrectAbbreviation
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -149,7 +149,7 @@
     XCTAssertEqualObjects(team.abbreviation, expectedAbbreviation, @"team abbreviation property should match expectedAbbreviation");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedNickname
+- (void)testUpdateWithInfoShouldAssignCorrectNickname
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -164,7 +164,7 @@
     XCTAssertEqualObjects(team.nickname, expectedNickname, @"team nickname property should match expectedNickname");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedTeamID
+- (void)testUpdateWithInfoShouldAssignCorrectTeamID
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -179,7 +179,7 @@
     XCTAssertEqualObjects(team.teamID, expectedTeamID, @"team teamID property should match expectedTeamID");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedTeamsURL
+- (void)testUpdateWithInfoShouldAssignCorrectTeamsURL
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -194,7 +194,7 @@
     XCTAssertEqualObjects(team.teamsURL, expectedTeamsURL, @"team teamsURL property should match expectedTeamsURL");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedNewsURL
+- (void)testUpdateWithInfoShouldAssignCorrectNewsURL
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -209,7 +209,7 @@
     XCTAssertEqualObjects(team.newsURL, expectedNewsURL, @"team newsURL property should match expectedNewsURL");
 }
 
-- (void)testUpdateWithInfoShouldAssignExpectedNotesURL
+- (void)testUpdateWithInfoShouldAssignCorrectNotesURL
 {
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
@@ -222,6 +222,21 @@
     [team updateWithInfo:teamInfo];
     
     XCTAssertEqualObjects(team.notesURL, expectedNotesURL, @"team notesURL property should match expectedNotesURL");
+}
+
+- (void)testUpdateWithInfoShouldAssignCorrectDetailsURL
+{
+    NSData *testData = [fixtureHelper validDataFromTeamsFixture];
+    id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
+    NSArray *teamsJSON = [Team teamsJSONFromResponse:json];
+    NSDictionary *teamInfo = [teamsJSON objectAtIndex:0];
+    NSString *expectedDetailsURL = [[[teamInfo objectForKey:@"mobile"] objectForKey:@"teams"] objectForKey:@"href"];
+    
+    Team *team = [Team MR_createInContext:managedObjectContext];
+    team.uid = [teamInfo objectForKey:@"uid"];
+    [team updateWithInfo:teamInfo];
+    
+    XCTAssertEqualObjects(team.detailsURL, expectedDetailsURL, @"team detailsURL property should match expectedDetailsURL");
 }
 
 - (void)testParseTeamsJSONReturnsExpectedCount

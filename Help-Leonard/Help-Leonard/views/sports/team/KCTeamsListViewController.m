@@ -8,7 +8,7 @@
 
 #import "KCTeamsListViewController.h"
 #import "Team+Network.h"
-#import "KCTeamNewsViewController.h"
+#import "KCTeamViewController.h"
 
 @interface KCTeamsListViewController ()
 
@@ -121,9 +121,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"showTeamNews"]) {
+    if ([segue.identifier isEqualToString:@"showTeam"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        KCTeamNewsViewController *destViewController = segue.destinationViewController;
+        KCTeamViewController *destViewController = segue.destinationViewController;
         destViewController.team = [self.teams objectAtIndex:indexPath.row];
     }
 }

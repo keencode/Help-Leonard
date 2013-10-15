@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Team.h"
 
-@interface KCTeamDetailViewController : UITableViewController
+@interface KCTeamDetailsViewController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) Team *team;
 
 @end

@@ -1,0 +1,58 @@
+{
+  "sports": [
+    {
+      "id": 1,
+      "uid": "s:1",
+      "name": "baseball",
+      "leagues": [
+        {
+          "abbreviation": "mlb",
+          "uid": "s:1~l:10",
+          "shortName": "MLB",
+          "id": 10,
+          "teams": [
+            {
+              "abbreviation": "BAL",
+              "color": "201b1b",
+              "uid": "s:1~l:10~t:1",
+              "id": 1,
+              "location": "Baltimore",
+              "nickname": "Baltimore",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/1"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/1/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/1/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/bal/baltimore-orioles?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=1&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Orioles"
+            }
+          ],
+          "groupId": 9,
+          "name": "Major League Baseball"
+        }
+      ]
+    }
+  ],
+  "resultsOffset": 0,
+  "timestamp": "2013-10-14T22:34:02Z",
+  "resultsCount": 1,
+  "status": "success",
+  "resultsLimit": 50
+}

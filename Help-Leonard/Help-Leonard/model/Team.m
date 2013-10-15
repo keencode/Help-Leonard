@@ -2,7 +2,7 @@
 //  Team.m
 //  Help-Leonard
 //
-//  Created by Yee Peng Chia on 10/13/13.
+//  Created by Yee Peng Chia on 10/14/13.
 //  Copyright (c) 2013 Keen Code. All rights reserved.
 //
 
@@ -12,16 +12,17 @@
 
 @implementation Team
 
-@dynamic name;
-@dynamic teamID;
-@dynamic location;
-@dynamic nickname;
-@dynamic newsURL;
-@dynamic notesURL;
-@dynamic teamsURL;
 @dynamic abbreviation;
 @dynamic favorite;
+@dynamic location;
+@dynamic name;
+@dynamic newsURL;
+@dynamic nickname;
+@dynamic notesURL;
+@dynamic teamID;
+@dynamic teamsURL;
 @dynamic uid;
+@dynamic mobileURL;
 @dynamic league;
 
 @end

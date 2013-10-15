@@ -12,9 +12,8 @@
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-    self.uid = (NSNumber *)[info objectForKey:@"id"];
-    self.name = (NSString *)[info objectForKey:@"name"];
-//    self.abbreviation = (NSString *)[info objectForKey:@"abbreviation"];
+    self.uid = [info objectForKey:@"id"];
+    self.name = [info objectForKey:@"name"];
 }
 
 @end

@@ -17,7 +17,7 @@
     NSMutableArray *ids = [NSMutableArray arrayWithCapacity:[json count]];
     
     for (NSDictionary *infoDict in json) {
-        NSNumber *tempID = (NSNumber *)[infoDict objectForKey:@"uid"];
+        NSNumber *tempID = [infoDict objectForKey:@"uid"];
         [ids addObject:tempID];
     }
     

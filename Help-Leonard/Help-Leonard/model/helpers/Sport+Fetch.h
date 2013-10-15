@@ -15,4 +15,6 @@
 + (NSArray *)localSportsFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context;
 + (NSArray *)fetchSportsInAlphabeticalOrder;
 
+- (NSArray *)sortedLeagues;
+
 @end

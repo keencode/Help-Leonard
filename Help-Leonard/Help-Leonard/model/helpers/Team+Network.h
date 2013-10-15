@@ -15,9 +15,9 @@
                       onSuccess:(void (^)(NSArray *teams))successBlock
                       onFailure:(void (^)(NSError *error))failureBlock;
 
-+ (void)remoteDetailsForTeamURL:(NSString *)url
-                      onSuccess:(void (^)(NSArray *news))successBlock
-                      onFailure:(void (^)(NSError *error))failureBlock;
+//+ (void)remoteDetailsForTeamURL:(NSString *)url
+//                      onSuccess:(void (^)(NSArray *news))successBlock
+//                      onFailure:(void (^)(NSError *error))failureBlock;
 
 + (void)remoteNewsForTeamURL:(NSString *)url
                    onSuccess:(void (^)(NSArray *headlines))successBlock
@@ -32,10 +32,6 @@
                   onSuccess:(void (^)(NSArray *teams))successBlock
                   onFailure:(void (^)(NSError *error))failureBlock;
 
-//+ (void)processNewsJSONResponse:(NSDictionary *)json
-//                      onSuccess:(void (^)(NSArray *teams))successBlock
-//                      onFailure:(void (^)(NSError *error))failureBlock;
-
 + (BOOL)JSONIsValid:(id)json;
 
 + (NSArray *)teamsJSONFromResponse:(NSDictionary *)json;
@@ -44,5 +40,10 @@
 
 - (void)updateWithInfo:(NSDictionary *)info;
 
+- (void)addFavoriteOnSuccess:(void (^)(BOOL success))successBlock
+                   onFailure:(void (^)(NSError *error))failureBlock;
+
+- (void)removeFavoriteOnSuccess:(void (^)(BOOL success))successBlock
+                      onFailure:(void (^)(NSError *error))failureBlock;
 
 @end

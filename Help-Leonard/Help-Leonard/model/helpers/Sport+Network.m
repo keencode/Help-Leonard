@@ -41,7 +41,7 @@
                 }
             } else {
                 NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid Status Code"};
-                NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
+                NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
                 failureBlock(error);
             }
         }
@@ -77,7 +77,7 @@
         });
     } else {
         NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
-        NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
         failureBlock(error);
     }
 }
@@ -108,7 +108,7 @@
     NSPredicate *leaguePredicate = [NSPredicate predicateWithFormat:@"abbreviation == $LEAGUE_ABBREV"];
     
     for (NSDictionary *sportInfo in json) {
-        NSNumber *sportID = (NSNumber *)[sportInfo objectForKey:@"id"];
+        NSNumber *sportID = [sportInfo objectForKey:@"id"];
         NSDictionary *sportVar = @{@"SPORT_ID" : sportID};
         NSPredicate *localSportPredicate = [sportPredicate predicateWithSubstitutionVariables:sportVar];
         NSArray *results = [localSports filteredArrayUsingPredicate:localSportPredicate];
@@ -125,7 +125,7 @@
         
         NSArray *leaguesInfo = [sportInfo objectForKey:@"leagues"];
         for (NSDictionary *leagueInfo in leaguesInfo) {
-            NSString *leagueAbbrev = (NSString *)[leagueInfo objectForKey:@"abbreviation"];
+            NSString *leagueAbbrev = [leagueInfo objectForKey:@"abbreviation"];
             NSDictionary *sportVar = @{@"LEAGUE_ABBREV" : leagueAbbrev};
             NSPredicate *localLeaguePredicate = [leaguePredicate predicateWithSubstitutionVariables:sportVar];
             NSArray *results = [localLeagues filteredArrayUsingPredicate:localLeaguePredicate];
@@ -150,7 +150,7 @@
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-    self.name = (NSString *)[info objectForKey:@"name"];
+    self.name = [info objectForKey:@"name"];
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "Sport+Fetch.h"
 #import "Sport+Network.h"
 #import "FixtureHelper.h"
+#import "League.h"
 
 @interface SportFetchTests : XCTestCase
 {
@@ -152,6 +153,19 @@
     Sport *secondSport = [localSports objectAtIndex:2];
     
     XCTAssertTrue([firstSport.name compare:secondSport.name] == NSOrderedAscending, @"firstSport name should come before secondSport name");
+}
+
+- (void)testSortedLeaguesShouldReturnArraySortedInAlphabeticalOrder
+{
+    [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
+    
+    NSArray *localSports = [Sport fetchSportsInAlphabeticalOrder];
+    Sport *sport = [localSports objectAtIndex:1];
+    NSArray *sortedLeagues = [sport sortedLeagues];
+    League *league1 = [sortedLeagues objectAtIndex:0];
+    League *league2 = [sortedLeagues objectAtIndex:1];
+    
+    XCTAssertTrue([league1.name compare:league2.name] == NSOrderedAscending, @"league1 name should come before league2 name");
 }
 
 @end

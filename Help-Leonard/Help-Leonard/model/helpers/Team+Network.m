@@ -43,7 +43,7 @@
                 }
             } else {
                 NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid Status Code"};
-                NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
+                NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
                 failureBlock(error);
             }
         }
@@ -87,7 +87,7 @@
         });
     } else {
         NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
-        NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
         failureBlock(error);
     }
 }
@@ -139,7 +139,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid == $TEAM_ID"];
     
     for (NSDictionary *teamInfo in json) {
-        NSString *uid = (NSString *)[teamInfo objectForKey:@"uid"];
+        NSString *uid = [teamInfo objectForKey:@"uid"];
         NSDictionary *variable = @{@"TEAM_ID" : uid};
         NSPredicate *localPredicate = [predicate predicateWithSubstitutionVariables:variable];
         NSArray *results = [localTeams filteredArrayUsingPredicate:localPredicate];
@@ -150,6 +150,7 @@
         } else {
             team = [Team MR_createInContext:context];
             team.uid = uid;
+            team.favorite = [NSNumber numberWithBool:NO];
         }
 
         [team updateWithInfo:teamInfo];
@@ -161,22 +162,23 @@
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-    self.teamID = (NSNumber *)[info objectForKey:@"id"];
-    self.name = (NSString *)[info objectForKey:@"name"];
-    self.abbreviation = (NSString *)[info objectForKey:@"abbreviation"];
-    self.location = (NSString *)[info objectForKey:@"location"];
-    self.nickname = (NSString *)[info objectForKey:@"nickname"];
-    self.teamsURL = (NSString *)[[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"teams"] objectForKey:@"href"];
-    self.newsURL = (NSString *)[[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"news"] objectForKey:@"href"];
-    self.notesURL = (NSString *)[[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"notes"] objectForKey:@"href"];
+    self.teamID = [info objectForKey:@"id"];
+    self.name = [info objectForKey:@"name"];
+    self.abbreviation = [info objectForKey:@"abbreviation"];
+    self.location = [info objectForKey:@"location"];
+    self.nickname = [info objectForKey:@"nickname"];
+    self.teamsURL = [[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"teams"] objectForKey:@"href"];
+    self.newsURL = [[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"news"] objectForKey:@"href"];
+    self.notesURL = [[[[info objectForKey:@"links"] objectForKey:@"api"] objectForKey:@"notes"] objectForKey:@"href"];
+    self.mobileURL = [[[[info objectForKey:@"links"] objectForKey:@"mobile"] objectForKey:@"teams"] objectForKey:@"href"];
 }
 
-+ (void)remoteDetailsForTeamURL:(NSString *)url
-                      onSuccess:(void (^)(NSArray *news))successBlock
-                      onFailure:(void (^)(NSError *error))failureBlock
-{
-    
-}
+//+ (void)remoteDetailsForTeamURL:(NSString *)url
+//                      onSuccess:(void (^)(NSArray *news))successBlock
+//                      onFailure:(void (^)(NSError *error))failureBlock
+//{
+//    
+//}
 
 + (void)remoteNewsForTeamURL:(NSString *)url
                    onSuccess:(void (^)(NSArray *headlines))successBlock
@@ -190,15 +192,24 @@
     
     WebServiceCallbackBlock completionBlock = ^(id data, NSURLResponse *response, NSError *error) {
         if (error) {
-            NSLog(@"error: %@", error);
+            failureBlock(error);
         } else {
-            id json = [NSJSONSerialization JSONObjectWithData:data
-                                                      options:NSJSONReadingMutableLeaves
-                                                        error:&error];
-            if (!error) {
-                [Headline processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+            int responseStatusCode = [httpResponse statusCode];
+            
+            if (responseStatusCode == 200) {
+                id json = [NSJSONSerialization JSONObjectWithData:data
+                                                          options:NSJSONReadingMutableLeaves
+                                                            error:&error];
+                if (!error) {
+                    [Headline processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+                } else {
+                    failureBlock(error);
+                }
             } else {
-                NSLog(@"error loading fixture: %@", [error userInfo]);
+                NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid Status Code"};
+                NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
+                failureBlock(error);
             }
         }
     };
@@ -217,31 +228,48 @@
     return [NSString stringWithFormat:@"%@?apikey=%@", newsURL, kESPNAPIKey];
 }
 
-//+ (void)processNewsJSONResponse:(NSDictionary *)json
-//                      onSuccess:(void (^)(NSArray *teams))successBlock
-//                      onFailure:(void (^)(NSError *error))failureBlock
-//{
-//    if ([Headline JSONIsValid:json]) {
-//        NSArray *teamsJSON = [Team teamsJSONFromResponse:json];
-//        
-//        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.keencode.helpleonard.backgroundQueue", 0);
-//        dispatch_async(backgroundQueue, ^{
-//            NSManagedObjectContext *backgroundContext = [NSManagedObjectContext MR_contextForCurrentThread];
-//            [Team parseTeamsJSON:teamsJSON inContext:backgroundContext];
-//            
-//            [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    NSArray *ids = [Team IDsFromJSON:teamsJSON];
-//                    NSArray *sortedTeams = [Team sortedTeamsWithIDs:ids];
-//                    successBlock(sortedTeams);
-//                });
-//            }];
-//        });
-//    } else {
-//        NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
-//        NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCTeamInvalidJSON userInfo:userInfo];
-//        failureBlock(error);
-//    }
-//}
+- (void)addFavoriteOnSuccess:(void (^)(BOOL success))successBlock
+                   onFailure:(void (^)(NSError *error))failureBlock
+{
+    [self.managedObjectContext performBlock:^{
+        self.favorite = [NSNumber numberWithBool:YES];
+        
+        [self.managedObjectContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+            if (!error) {
+                if (success) {
+                    successBlock(YES);
+                } else {
+                    NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Add Favorite Failed"};
+                    NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCAddFavoriteFailure userInfo:userInfo];
+                    failureBlock(error);
+                }
+            } else {
+                failureBlock(error);
+            }
+        }];
+    }];
+}
+
+- (void)removeFavoriteOnSuccess:(void (^)(BOOL success))successBlock
+                      onFailure:(void (^)(NSError *error))failureBlock
+{
+    [self.managedObjectContext performBlock:^{
+        self.favorite = [NSNumber numberWithBool:NO];
+
+        [self.managedObjectContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+            if (!error) {
+                if (success) {
+                    successBlock(YES);
+                } else {
+                    NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Remove Favorite Failed"};
+                    NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCRemoveFavoriteFailure userInfo:userInfo];
+                    failureBlock(error);
+                }
+            } else {
+                failureBlock(error);
+            }
+        }];
+    }];
+}
 
 @end

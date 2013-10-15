@@ -41,7 +41,7 @@
                 }
             } else {
                 NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid Status Code"};
-                NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
+                NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidStatusCode userInfo:userInfo];
                 failureBlock(error);
             }
         }
@@ -77,7 +77,7 @@
         });
     } else {
         NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
-        NSError *error = [NSError errorWithDomain:kNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
         failureBlock(error);
     }
 }
@@ -119,7 +119,7 @@
             headline = [results objectAtIndex:0];
         } else {
             headline = [Headline MR_createInContext:context];
-            headline.uid = (NSNumber *)[info objectForKey:@"id"];
+            headline.uid = [info objectForKey:@"id"];
         }
         
         [headline updateWithInfo:info];
@@ -131,15 +131,15 @@
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-    self.title = (NSString *)[info objectForKey:@"title"];
-    self.headline = (NSString *)[info objectForKey:@"headline"];
-    self.ddescription = (NSString *)[info objectForKey:@"description"];
-    self.mobileURL = (NSString *)[[[info objectForKey:@"links"] objectForKey:@"mobile"] objectForKey:@"href"];
+    self.title = [info objectForKey:@"title"];
+    self.headline = [info objectForKey:@"headline"];
+    self.ddescription = [info objectForKey:@"description"];
+    self.mobileURL = [[[info objectForKey:@"links"] objectForKey:@"mobile"] objectForKey:@"href"];
     
-    NSString *published = (NSString *)[info objectForKey:@"published"];
+    NSString *published = [info objectForKey:@"published"];
     self.published = [KCDateHelper dateFromFormattedString:published];
     
-    NSString *lastModified = (NSString *)[info objectForKey:@"lastModified"];
+    NSString *lastModified = [info objectForKey:@"lastModified"];
     self.lastModified = [KCDateHelper dateFromFormattedString:lastModified];
 }
 

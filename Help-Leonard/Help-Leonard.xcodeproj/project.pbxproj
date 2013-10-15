@@ -41,8 +41,7 @@
 		B82625D8180B79A800750CEA /* teams_invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = B82625D7180B79A800750CEA /* teams_invalid.json */; };
 		B82625E0180B7E8B00750CEA /* TeamFetchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625DF180B7E8B00750CEA /* TeamFetchTests.m */; };
 		B82625E6180B7F1F00750CEA /* KCHeadlineDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625E5180B7F1F00750CEA /* KCHeadlineDetailViewController.m */; };
-		B82625EC180B887D00750CEA /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625EB180B887D00750CEA /* Team.m */; };
-		B82625F8180B9C8F00750CEA /* KCTeamDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625F3180B9C8F00750CEA /* KCTeamDetailViewController.m */; };
+		B82625F8180B9C8F00750CEA /* KCTeamDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625F3180B9C8F00750CEA /* KCTeamDetailsViewController.m */; };
 		B82625F9180B9C8F00750CEA /* KCTeamNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625F5180B9C8F00750CEA /* KCTeamNewsViewController.m */; };
 		B82625FA180B9C8F00750CEA /* KCTeamsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625F7180B9C8F00750CEA /* KCTeamsListViewController.m */; };
 		B8262600180BB5EA00750CEA /* Headline.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625FF180BB5EA00750CEA /* Headline.m */; };
@@ -67,6 +66,9 @@
 		B8DA95181808703500358659 /* KCFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DA95171808703500358659 /* KCFavoritesViewController.m */; };
 		B8DA951B1808718F00358659 /* KCHeadlinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DA951A1808718F00358659 /* KCHeadlinesViewController.m */; };
 		B8DA951D180871D200358659 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DA951C180871D200358659 /* Security.framework */; };
+		B8F340AE180C55C300413D19 /* KCTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340AD180C55C300413D19 /* KCTeamViewController.m */; };
+		B8F340B1180CA84C00413D19 /* KCTeamEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */; };
+		B8F340B7180CC34700413D19 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340B6180CC34700413D19 /* Team.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,10 +130,8 @@
 		B82625DF180B7E8B00750CEA /* TeamFetchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamFetchTests.m; sourceTree = "<group>"; };
 		B82625E4180B7F1F00750CEA /* KCHeadlineDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KCHeadlineDetailViewController.h; path = views/headlines/KCHeadlineDetailViewController.h; sourceTree = "<group>"; };
 		B82625E5180B7F1F00750CEA /* KCHeadlineDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KCHeadlineDetailViewController.m; path = views/headlines/KCHeadlineDetailViewController.m; sourceTree = "<group>"; };
-		B82625EA180B887D00750CEA /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Team.h; path = model/Team.h; sourceTree = "<group>"; };
-		B82625EB180B887D00750CEA /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Team.m; path = model/Team.m; sourceTree = "<group>"; };
-		B82625F2180B9C8F00750CEA /* KCTeamDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamDetailViewController.h; sourceTree = "<group>"; };
-		B82625F3180B9C8F00750CEA /* KCTeamDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamDetailViewController.m; sourceTree = "<group>"; };
+		B82625F2180B9C8F00750CEA /* KCTeamDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamDetailsViewController.h; sourceTree = "<group>"; };
+		B82625F3180B9C8F00750CEA /* KCTeamDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamDetailsViewController.m; sourceTree = "<group>"; };
 		B82625F4180B9C8F00750CEA /* KCTeamNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamNewsViewController.h; sourceTree = "<group>"; };
 		B82625F5180B9C8F00750CEA /* KCTeamNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamNewsViewController.m; sourceTree = "<group>"; };
 		B82625F6180B9C8F00750CEA /* KCTeamsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamsListViewController.h; sourceTree = "<group>"; };
@@ -169,6 +169,12 @@
 		B8DA95191808718F00358659 /* KCHeadlinesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KCHeadlinesViewController.h; path = views/headlines/KCHeadlinesViewController.h; sourceTree = "<group>"; };
 		B8DA951A1808718F00358659 /* KCHeadlinesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KCHeadlinesViewController.m; path = views/headlines/KCHeadlinesViewController.m; sourceTree = "<group>"; };
 		B8DA951C180871D200358659 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B8F340AC180C55C300413D19 /* KCTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamViewController.h; sourceTree = "<group>"; };
+		B8F340AD180C55C300413D19 /* KCTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamViewController.m; sourceTree = "<group>"; };
+		B8F340AF180CA84C00413D19 /* KCTeamEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamEventsViewController.h; sourceTree = "<group>"; };
+		B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamEventsViewController.m; sourceTree = "<group>"; };
+		B8F340B5180CC34700413D19 /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Team.h; path = model/Team.h; sourceTree = "<group>"; };
+		B8F340B6180CC34700413D19 /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Team.m; path = model/Team.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,10 +299,14 @@
 			children = (
 				B82625F6180B9C8F00750CEA /* KCTeamsListViewController.h */,
 				B82625F7180B9C8F00750CEA /* KCTeamsListViewController.m */,
+				B8F340AC180C55C300413D19 /* KCTeamViewController.h */,
+				B8F340AD180C55C300413D19 /* KCTeamViewController.m */,
+				B82625F2180B9C8F00750CEA /* KCTeamDetailsViewController.h */,
+				B82625F3180B9C8F00750CEA /* KCTeamDetailsViewController.m */,
 				B82625F4180B9C8F00750CEA /* KCTeamNewsViewController.h */,
 				B82625F5180B9C8F00750CEA /* KCTeamNewsViewController.m */,
-				B82625F2180B9C8F00750CEA /* KCTeamDetailViewController.h */,
-				B82625F3180B9C8F00750CEA /* KCTeamDetailViewController.m */,
+				B8F340AF180CA84C00413D19 /* KCTeamEventsViewController.h */,
+				B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */,
 			);
 			name = team;
 			path = views/sports/team;
@@ -420,11 +430,11 @@
 		B8DA950B18086ECC00358659 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B8F340B5180CC34700413D19 /* Team.h */,
+				B8F340B6180CC34700413D19 /* Team.m */,
 				B826253618087E4000750CEA /* Help-Leonard.xcdatamodeld */,
 				B82625FE180BB5EA00750CEA /* Headline.h */,
 				B82625FF180BB5EA00750CEA /* Headline.m */,
-				B82625EA180B887D00750CEA /* Team.h */,
-				B82625EB180B887D00750CEA /* Team.m */,
 				B82625CD180B6DDD00750CEA /* Sport.h */,
 				B82625CE180B6DDD00750CEA /* Sport.m */,
 				B82625C7180B6DDD00750CEA /* League.h */,
@@ -610,14 +620,15 @@
 				B82625C2180B67D400750CEA /* League+Fetch.m in Sources */,
 				B82625B6180B606C00750CEA /* Team+Network.m in Sources */,
 				B8262600180BB5EA00750CEA /* Headline.m in Sources */,
-				B82625F8180B9C8F00750CEA /* KCTeamDetailViewController.m in Sources */,
+				B82625F8180B9C8F00750CEA /* KCTeamDetailsViewController.m in Sources */,
 				B82625A3180B4AFF00750CEA /* Sport+Fetch.m in Sources */,
 				B82625641808B6A100750CEA /* Headline+Fetch.m in Sources */,
-				B82625EC180B887D00750CEA /* Team.m in Sources */,
 				B8DA951B1808718F00358659 /* KCHeadlinesViewController.m in Sources */,
 				B82625C9180B6DDD00750CEA /* League.m in Sources */,
 				B8DA950818086CD800358659 /* WebServiceManager.m in Sources */,
 				B8DA95141808700700358659 /* KCSportsListViewController.m in Sources */,
+				B8F340B1180CA84C00413D19 /* KCTeamEventsViewController.m in Sources */,
+				B8F340B7180CC34700413D19 /* Team.m in Sources */,
 				B826256C1808C3FB00750CEA /* KCDateHelper.m in Sources */,
 				B82625F9180B9C8F00750CEA /* KCTeamNewsViewController.m in Sources */,
 				B8262597180B393F00750CEA /* Sport+Network.m in Sources */,
@@ -630,6 +641,7 @@
 				B82625CF180B6DDD00750CEA /* Sport.m in Sources */,
 				B8DA95181808703500358659 /* KCFavoritesViewController.m in Sources */,
 				B8DA94D218086C1100358659 /* main.m in Sources */,
+				B8F340AE180C55C300413D19 /* KCTeamViewController.m in Sources */,
 				B8262587180914C200750CEA /* KCGlobals.m in Sources */,
 				B82625B3180B605E00750CEA /* Team+Fetch.m in Sources */,
 			);

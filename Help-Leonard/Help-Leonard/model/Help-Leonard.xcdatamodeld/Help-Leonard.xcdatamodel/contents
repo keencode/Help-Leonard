@@ -26,6 +26,7 @@
         <attribute name="abbreviation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="newsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,8 +38,8 @@
     </entity>
     <elements>
         <element name="Headline" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="League" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Sport" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Team" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="League" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

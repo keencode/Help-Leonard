@@ -17,7 +17,7 @@
     NSMutableArray *ids = [NSMutableArray arrayWithCapacity:[json count]];
     
     for (NSDictionary *infoDict in json) {
-        NSNumber *tempID = (NSNumber *)[infoDict objectForKey:@"id"];
+        NSNumber *tempID = [infoDict objectForKey:@"id"];
         [ids addObject:tempID];
     }
     
@@ -42,6 +42,14 @@
     NSFetchRequest *request = [Sport MR_requestAllInContext:defaultContext];
     [request setFetchBatchSize:kBatchSize];
     return [Sport MR_findAllSortedBy:@"name" ascending:YES inContext:defaultContext];
+}
+
+- (NSArray *)sortedLeagues
+{
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                     ascending:YES
+                                                                      selector:@selector(caseInsensitiveCompare:)];
+    return [self.leagues sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
 @end
