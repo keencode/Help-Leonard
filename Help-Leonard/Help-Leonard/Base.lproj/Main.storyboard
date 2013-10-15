@@ -98,7 +98,13 @@
                             <constraint firstAttribute="bottom" secondItem="WSQ-MJ-SeP" secondAttribute="bottom" id="rvC-OZ-nHZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ewS-kY-AFT"/>
+                    <navigationItem key="navigationItem" id="ewS-kY-AFT">
+                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="g7r-mh-lAr">
+                            <connections>
+                                <action selector="tweetButtonClicked:" destination="OpP-RH-ZpK" id="gR8-CR-xGb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="webView" destination="WSQ-MJ-SeP" id="rdR-w0-tQ9"/>
                     </connections>
@@ -385,22 +391,25 @@
             </objects>
             <point key="canvasLocation" x="66" y="887"/>
         </scene>
-        <!--Table View Controller - Favorites-->
+        <!--Favorites View Controller - Favorites-->
         <scene sceneID="qjf-op-ucK">
             <objects>
-                <tableViewController id="UPy-gL-0gB" sceneMemberID="viewController">
+                <tableViewController id="UPy-gL-0gB" customClass="KCFavoritesViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Orz-ms-OgZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gBK-Rw-UBY">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoriteTeamCell" id="gBK-Rw-UBY">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gBK-Rw-UBY" id="Pag-NP-unU">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="B4h-QW-Qdc" kind="push" identifier="showFavoriteTeam" id="gJz-FH-Lqm"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -440,6 +449,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gJz-FH-Lqm"/>
         <segue reference="zXu-yL-jjs"/>
     </inferredMetricsTieBreakers>
 </document>

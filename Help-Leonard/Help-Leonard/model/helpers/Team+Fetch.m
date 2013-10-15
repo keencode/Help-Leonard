@@ -8,7 +8,7 @@
 
 #import "Team+Fetch.h"
 
-#define kBatchSize 100
+#define kBatchSize 500
 
 @implementation Team (Fetch)
 
@@ -44,6 +44,18 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid IN %@", ids];
     return [Team MR_findAllSortedBy:@"name" ascending:YES withPredicate:predicate inContext:defaultContext];
+}
+
++ (NSFetchedResultsController *)fetchFavoriteTeamsWithDelegate:(id <NSFetchedResultsControllerDelegate>)delegate
+{
+    NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
+    NSFetchRequest *request = [Team MR_requestAllInContext:defaultContext];
+    [request setFetchBatchSize:kBatchSize];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favorite == %@", [NSNumber numberWithBool:YES]];
+    
+    return [Team MR_fetchAllSortedBy:@"name" ascending:YES withPredicate:predicate groupBy:nil
+                            delegate:delegate inContext:defaultContext];
 }
 
 @end

@@ -230,13 +230,13 @@
     id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
     NSArray *teamsJSON = [Team teamsJSONFromResponse:json];
     NSDictionary *teamInfo = [teamsJSON objectAtIndex:0];
-    NSString *expectedDetailsURL = [[[teamInfo objectForKey:@"mobile"] objectForKey:@"teams"] objectForKey:@"href"];
+    NSString *expectedMobileURL = [[[[teamInfo objectForKey:@"links"] objectForKey:@"mobile"] objectForKey:@"teams"] objectForKey:@"href"];
     
     Team *team = [Team MR_createInContext:managedObjectContext];
     team.uid = [teamInfo objectForKey:@"uid"];
     [team updateWithInfo:teamInfo];
     
-    XCTAssertEqualObjects(team.detailsURL, expectedDetailsURL, @"team detailsURL property should match expectedDetailsURL");
+    XCTAssertEqualObjects(team.mobileURL, expectedMobileURL, @"team mobileURL property should match expectedMobileURL");
 }
 
 - (void)testParseTeamsJSONReturnsExpectedCount

@@ -139,14 +139,69 @@
 
 - (void)testSortedTeamsWithIDsShouldReturnTeamsInAlphabeticalOrder
 {
-    NSArray *teamIDs = [Team IDsFromJSON:teamsJSON];
-    
     [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];
-    NSArray *localTeams = [Team sortedTeamsWithIDs:teamIDs];
-    Team *firstTeam = [localTeams objectAtIndex:0];
-    Team *secondTeam = [localTeams objectAtIndex:1];
+    
+    NSArray *teamIDs = [Team IDsFromJSON:teamsJSON];
+    NSArray *sortedTeams = [Team sortedTeamsWithIDs:teamIDs];
+    Team *firstTeam = [sortedTeams objectAtIndex:0];
+    Team *secondTeam = [sortedTeams objectAtIndex:1];
     
     XCTAssertTrue([firstTeam.name compare:secondTeam.name] == NSOrderedAscending, @"firstTeam name should come before secondTeam name");
+}
+
+- (void)testFetchFavoriteTeamsShouldReturnAValidFetchedResultsController
+{
+    [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];
+    id fetchedResultsController = [Team fetchFavoriteTeamsWithDelegate:nil];
+    
+    XCTAssertTrue([fetchedResultsController isKindOfClass:[NSFetchedResultsController class]], @"favorites should be of NSFetchedResultsController type");
+}
+
+- (void)testFetchFavoriteTeamsShouldReturnCorrectNumberOfTeamsMarkedFavorite
+{
+    [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];    
+    NSArray *teamIDs = [Team IDsFromJSON:teamsJSON];
+    NSArray *teams =  [Team sortedTeamsWithIDs:teamIDs];
+    Team *firstTeam = [teams objectAtIndex:0];
+    firstTeam.favorite = [NSNumber numberWithBool:YES];
+    NSUInteger expectedCount = 1;
+    
+    NSFetchedResultsController *fetchedResultsController = [Team fetchFavoriteTeamsWithDelegate:nil];
+    id sectionInfo = [fetchedResultsController.sections objectAtIndex:0];
+    
+    XCTAssertEqual([sectionInfo numberOfObjects], expectedCount, @"sectionInfo count should equal expectedCount");
+}
+
+- (void)testFetchFavoriteTeamsShouldReturnArrayOfTeamObjects
+{
+    [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];
+    NSUInteger sectionIndex = 0;
+    NSUInteger rowIndex = 0;
+    NSArray *teamIDs = [Team IDsFromJSON:teamsJSON];
+    NSArray *teams =  [Team sortedTeamsWithIDs:teamIDs];
+    Team *firstTeam = [teams objectAtIndex:rowIndex];
+    firstTeam.favorite = [NSNumber numberWithBool:YES];
+    
+    NSFetchedResultsController *fetchedResultsController = [Team fetchFavoriteTeamsWithDelegate:nil];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+    id team = [fetchedResultsController objectAtIndexPath:indexPath];
+    
+    XCTAssertTrue([team isKindOfClass:[Team class]], @"team should be of Team type");
+}
+
+- (void)testFetchFavoriteTeamsShouldReturnSectionContainingExpectedTeam
+{
+    [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];
+    NSUInteger rowIndex = 0;
+    NSArray *teamIDs = [Team IDsFromJSON:teamsJSON];
+    NSArray *teams =  [Team sortedTeamsWithIDs:teamIDs];
+    Team *firstTeam = [teams objectAtIndex:rowIndex];
+    firstTeam.favorite = [NSNumber numberWithBool:YES];
+    
+    NSFetchedResultsController *fetchedResultsController = [Team fetchFavoriteTeamsWithDelegate:nil];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [fetchedResultsController.sections objectAtIndex:0];
+    
+    XCTAssertTrue([sectionInfo.objects containsObject:firstTeam], @"sectionInfo should contain firstTeam");
 }
 
 @end

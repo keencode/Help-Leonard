@@ -69,6 +69,8 @@
 		B8F340AE180C55C300413D19 /* KCTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340AD180C55C300413D19 /* KCTeamViewController.m */; };
 		B8F340B1180CA84C00413D19 /* KCTeamEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */; };
 		B8F340B7180CC34700413D19 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340B6180CC34700413D19 /* Team.m */; };
+		B8F340B9180CF66E00413D19 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F340B8180CF66E00413D19 /* Accounts.framework */; };
+		B8F340BB180CF67500413D19 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F340BA180CF67500413D19 /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +177,8 @@
 		B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamEventsViewController.m; sourceTree = "<group>"; };
 		B8F340B5180CC34700413D19 /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Team.h; path = model/Team.h; sourceTree = "<group>"; };
 		B8F340B6180CC34700413D19 /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Team.m; path = model/Team.m; sourceTree = "<group>"; };
+		B8F340B8180CF66E00413D19 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		B8F340BA180CF67500413D19 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +199,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F340BB180CF67500413D19 /* Social.framework in Frameworks */,
+				B8F340B9180CF66E00413D19 /* Accounts.framework in Frameworks */,
 				B826254F18089A4A00750CEA /* CoreData.framework in Frameworks */,
 				B8DA94E518086C1100358659 /* XCTest.framework in Frameworks */,
 				B8DA94E718086C1100358659 /* UIKit.framework in Frameworks */,
@@ -336,6 +342,8 @@
 		B8DA94C418086C1100358659 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B8F340BA180CF67500413D19 /* Social.framework */,
+				B8F340B8180CF66E00413D19 /* Accounts.framework */,
 				B826253918087EA500750CEA /* CoreData.framework */,
 				B8DA951C180871D200358659 /* Security.framework */,
 				B8DA94C518086C1100358659 /* Foundation.framework */,

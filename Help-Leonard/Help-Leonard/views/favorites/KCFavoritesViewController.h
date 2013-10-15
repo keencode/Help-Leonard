@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KCFavoritesViewController : UITableViewController
+@interface KCFavoritesViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+
+@property (nonatomic, strong) NSArray *favorites;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end

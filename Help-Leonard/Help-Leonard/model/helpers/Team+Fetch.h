@@ -15,4 +15,6 @@
 + (NSArray *)localTeamsFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context;
 + (NSArray *)sortedTeamsWithIDs:(NSArray *)ids;
 
++ (NSFetchedResultsController *)fetchFavoriteTeamsWithDelegate:(id <NSFetchedResultsControllerDelegate>)delegate;
+
 @end
