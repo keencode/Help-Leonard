@@ -7,6 +7,7 @@
 //
 
 #import "KCHeadlineDetailViewController.h"
+#import <Social/Social.h>
 
 @interface KCHeadlineDetailViewController ()
 
@@ -36,6 +37,28 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)tweetButtonClicked:(id)sender
+{
+    SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    
+    tweetSheet.completionHandler = ^(SLComposeViewControllerResult result) {
+        switch(result) {
+            case SLComposeViewControllerResultCancelled:
+                break;
+            case SLComposeViewControllerResultDone:
+                break;
+        }
+    };
+    
+    if (![tweetSheet addURL:[NSURL URLWithString:self.headline.mobileURL]]) {
+        NSLog(@"Unable to add the URL!");
+    }
+    
+    [self presentViewController:tweetSheet animated:NO completion:^{
+        NSLog(@"Tweet sheet has been presented.");
+    }];
 }
 
 @end

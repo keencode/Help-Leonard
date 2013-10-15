@@ -14,4 +14,6 @@
 @property (nonatomic, weak) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) Headline *headline;
 
+- (IBAction)tweetButtonClicked:(id)sender;
+
 @end
