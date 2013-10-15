@@ -67,7 +67,6 @@
 		B8DA951B1808718F00358659 /* KCHeadlinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DA951A1808718F00358659 /* KCHeadlinesViewController.m */; };
 		B8DA951D180871D200358659 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DA951C180871D200358659 /* Security.framework */; };
 		B8F340AE180C55C300413D19 /* KCTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340AD180C55C300413D19 /* KCTeamViewController.m */; };
-		B8F340B1180CA84C00413D19 /* KCTeamEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */; };
 		B8F340B7180CC34700413D19 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F340B6180CC34700413D19 /* Team.m */; };
 		B8F340B9180CF66E00413D19 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F340B8180CF66E00413D19 /* Accounts.framework */; };
 		B8F340BB180CF67500413D19 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F340BA180CF67500413D19 /* Social.framework */; };
@@ -173,8 +172,6 @@
 		B8DA951C180871D200358659 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B8F340AC180C55C300413D19 /* KCTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamViewController.h; sourceTree = "<group>"; };
 		B8F340AD180C55C300413D19 /* KCTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamViewController.m; sourceTree = "<group>"; };
-		B8F340AF180CA84C00413D19 /* KCTeamEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTeamEventsViewController.h; sourceTree = "<group>"; };
-		B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamEventsViewController.m; sourceTree = "<group>"; };
 		B8F340B5180CC34700413D19 /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Team.h; path = model/Team.h; sourceTree = "<group>"; };
 		B8F340B6180CC34700413D19 /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Team.m; path = model/Team.m; sourceTree = "<group>"; };
 		B8F340B8180CF66E00413D19 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -311,8 +308,6 @@
 				B82625F3180B9C8F00750CEA /* KCTeamDetailsViewController.m */,
 				B82625F4180B9C8F00750CEA /* KCTeamNewsViewController.h */,
 				B82625F5180B9C8F00750CEA /* KCTeamNewsViewController.m */,
-				B8F340AF180CA84C00413D19 /* KCTeamEventsViewController.h */,
-				B8F340B0180CA84C00413D19 /* KCTeamEventsViewController.m */,
 			);
 			name = team;
 			path = views/sports/team;
@@ -635,7 +630,6 @@
 				B82625C9180B6DDD00750CEA /* League.m in Sources */,
 				B8DA950818086CD800358659 /* WebServiceManager.m in Sources */,
 				B8DA95141808700700358659 /* KCSportsListViewController.m in Sources */,
-				B8F340B1180CA84C00413D19 /* KCTeamEventsViewController.m in Sources */,
 				B8F340B7180CC34700413D19 /* Team.m in Sources */,
 				B826256C1808C3FB00750CEA /* KCDateHelper.m in Sources */,
 				B82625F9180B9C8F00750CEA /* KCTeamNewsViewController.m in Sources */,

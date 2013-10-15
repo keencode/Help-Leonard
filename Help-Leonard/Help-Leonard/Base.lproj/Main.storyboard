@@ -227,28 +227,12 @@
                                             <segue destination="ete-8g-GRt" kind="push" identifier="showTeamNews" id="Nof-dI-MZ9"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TeamEventsCell" id="Riv-6P-Cxk">
-                                        <rect key="frame" x="0.0" y="187" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Riv-6P-Cxk" id="Yzu-bY-I2n">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Events" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yJ-Hc-4CD">
-                                                    <rect key="frame" x="20" y="11" width="52" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="NhA-1n-H4k">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddFavoriteCell" id="LCk-p6-OYU">
-                                        <rect key="frame" x="0.0" y="251" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="207" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LCk-p6-OYU" id="v1C-wC-ei9">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -284,7 +268,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fDe-mx-aEc">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDe-mx-aEc">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -292,8 +276,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="fDe-mx-aEc" firstAttribute="top" secondItem="DWX-s1-rYy" secondAttribute="top" id="5Xr-1u-QMY"/>
+                            <constraint firstAttribute="trailing" secondItem="fDe-mx-aEc" secondAttribute="trailing" id="II5-UN-92e"/>
                             <constraint firstItem="fDe-mx-aEc" firstAttribute="top" secondItem="DWX-s1-rYy" secondAttribute="top" id="LR7-4q-rZb"/>
+                            <constraint firstItem="fDe-mx-aEc" firstAttribute="leading" secondItem="DWX-s1-rYy" secondAttribute="leading" id="LTw-ub-oGV"/>
                             <constraint firstAttribute="bottom" secondItem="fDe-mx-aEc" secondAttribute="bottom" id="M5l-Xk-UZQ"/>
+                            <constraint firstAttribute="bottom" secondItem="fDe-mx-aEc" secondAttribute="bottom" id="Vqd-lW-rkh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Tpr-1u-aFg"/>
