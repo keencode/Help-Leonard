@@ -1,0 +1,986 @@
+{
+  "sports": [
+    {
+      "id": 1,
+      "uid": "s:1",
+      "name": "baseball",
+      "leagues": [
+        {
+          "abbreviation": "mlb",
+          "uid": "s:1~l:10",
+          "shortName": "MLB",
+          "id": 10,
+          "teams": [
+            {
+              "abbreviation": "BAL",
+              "color": "201b1b",
+              "uid": "s:1~l:10~t:1",
+              "id": 1,
+              "location": "Baltimore",
+              "nickname": "Baltimore",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/1"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/1/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/1/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/bal/baltimore-orioles?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=1&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Orioles"
+            },
+            {
+              "abbreviation": "BOS",
+              "color": "00224b",
+              "uid": "s:1~l:10~t:2",
+              "id": 2,
+              "location": "Boston",
+              "nickname": "Boston",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/2"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/2/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/2/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/bos/boston-red-sox?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=2&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Red Sox"
+            },
+            {
+              "abbreviation": "LAA",
+              "color": "a50017",
+              "uid": "s:1~l:10~t:3",
+              "id": 3,
+              "location": "Los Angeles",
+              "nickname": "Los Angeles",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/3"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/3/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/3/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/laa/los-angeles-angels?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=3&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Angels"
+            },
+            {
+              "abbreviation": "CHW",
+              "color": "1b1516",
+              "uid": "s:1~l:10~t:4",
+              "id": 4,
+              "location": "Chicago",
+              "nickname": "Chicago",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/4"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/4/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/4/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/chw/chicago-white-sox?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=4&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "White Sox"
+            },
+            {
+              "abbreviation": "CLE",
+              "color": "00264e",
+              "uid": "s:1~l:10~t:5",
+              "id": 5,
+              "location": "Cleveland",
+              "nickname": "Cleveland",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/5"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/5/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/5/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/cle/cleveland-indians?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=5&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Indians"
+            },
+            {
+              "abbreviation": "DET",
+              "color": "002d5c",
+              "uid": "s:1~l:10~t:6",
+              "id": 6,
+              "location": "Detroit",
+              "nickname": "Detroit",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/6"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/6/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/6/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/det/detroit-tigers?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=6&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Tigers"
+            },
+            {
+              "abbreviation": "KC",
+              "color": "003b72",
+              "uid": "s:1~l:10~t:7",
+              "id": 7,
+              "location": "Kansas City",
+              "nickname": "Kansas City",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/7"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/7/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/7/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/kc/kansas-city-royals?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=7&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Royals"
+            },
+            {
+              "abbreviation": "MIL",
+              "color": "050C33",
+              "uid": "s:1~l:10~t:8",
+              "id": 8,
+              "location": "Milwaukee",
+              "nickname": "Milwaukee",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/8"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/8/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/8/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/mil/milwaukee-brewers?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=8&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Brewers"
+            },
+            {
+              "abbreviation": "MIN",
+              "color": "012756",
+              "uid": "s:1~l:10~t:9",
+              "id": 9,
+              "location": "Minnesota",
+              "nickname": "Minnesota",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/9"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/9/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/9/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/min/minnesota-twins?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=9&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Twins"
+            },
+            {
+              "abbreviation": "NYY",
+              "color": "011739",
+              "uid": "s:1~l:10~t:10",
+              "id": 10,
+              "location": "New York",
+              "nickname": "New York",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/10"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/10/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/10/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/nyy/new-york-yankees?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=10&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Yankees"
+            },
+            {
+              "abbreviation": "OAK",
+              "color": "014326",
+              "uid": "s:1~l:10~t:11",
+              "id": 11,
+              "location": "Oakland",
+              "nickname": "Oakland",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/11"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/11/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/11/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/oak/oakland-athletics?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=11&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Athletics"
+            },
+            {
+              "abbreviation": "SEA",
+              "color": "012a5b",
+              "uid": "s:1~l:10~t:12",
+              "id": 12,
+              "location": "Seattle",
+              "nickname": "Seattle",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/12"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/12/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/12/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/sea/seattle-mariners?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=12&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Mariners"
+            },
+            {
+              "abbreviation": "TEX",
+              "color": "003879",
+              "uid": "s:1~l:10~t:13",
+              "id": 13,
+              "location": "Texas",
+              "nickname": "Texas",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/13"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/13/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/13/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/tex/texas-rangers?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=13&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Rangers"
+            },
+            {
+              "abbreviation": "TOR",
+              "color": "0069ac",
+              "uid": "s:1~l:10~t:14",
+              "id": 14,
+              "location": "Toronto",
+              "nickname": "Toronto",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/14"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/14/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/14/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/tor/toronto-blue-jays?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=14&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Blue Jays"
+            },
+            {
+              "abbreviation": "ATL",
+              "color": "002248",
+              "uid": "s:1~l:10~t:15",
+              "id": 15,
+              "location": "Atlanta",
+              "nickname": "Atlanta",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/15"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/15/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/15/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/atl/atlanta-braves?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=15&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Braves"
+            },
+            {
+              "abbreviation": "CHC",
+              "color": "00417d",
+              "uid": "s:1~l:10~t:16",
+              "id": 16,
+              "location": "Chicago",
+              "nickname": "Chicago",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/16"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/16/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/16/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/chc/chicago-cubs?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=16&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Cubs"
+            },
+            {
+              "abbreviation": "CIN",
+              "color": "c41422",
+              "uid": "s:1~l:10~t:17",
+              "id": 17,
+              "location": "Cincinnati",
+              "nickname": "Cincinnati",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/17"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/17/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/17/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/cin/cincinnati-reds?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=17&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Reds"
+            },
+            {
+              "abbreviation": "HOU",
+              "color": "000000",
+              "uid": "s:1~l:10~t:18",
+              "id": 18,
+              "location": "Houston",
+              "nickname": "Houston",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/18"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/18/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/18/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/hou/houston-astros?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=18&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Astros"
+            },
+            {
+              "abbreviation": "LAD",
+              "color": "00337f",
+              "uid": "s:1~l:10~t:19",
+              "id": 19,
+              "location": "Los Angeles",
+              "nickname": "Los Angeles",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/19"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/19/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/19/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/lad/los-angeles-dodgers?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=19&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Dodgers"
+            },
+            {
+              "abbreviation": "WSH",
+              "color": "0a295d",
+              "uid": "s:1~l:10~t:20",
+              "id": 20,
+              "location": "Washington",
+              "nickname": "Washington",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/20"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/20/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/20/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/wsh/washington-nationals?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=20&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Nationals"
+            },
+            {
+              "abbreviation": "NYM",
+              "color": "00407b",
+              "uid": "s:1~l:10~t:21",
+              "id": 21,
+              "location": "New York",
+              "nickname": "New York",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/21"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/21/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/21/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/nym/new-york-mets?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=21&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Mets"
+            },
+            {
+              "abbreviation": "PHI",
+              "color": "be0011",
+              "uid": "s:1~l:10~t:22",
+              "id": 22,
+              "location": "Philadelphia",
+              "nickname": "Philadelphia",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/22"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/22/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/22/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/phi/philadelphia-phillies?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=22&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Phillies"
+            },
+            {
+              "abbreviation": "PIT",
+              "color": "111111",
+              "uid": "s:1~l:10~t:23",
+              "id": 23,
+              "location": "Pittsburgh",
+              "nickname": "Pittsburgh",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/23"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/23/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/23/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/pit/pittsburgh-pirates?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=23&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Pirates"
+            },
+            {
+              "abbreviation": "STL",
+              "color": "b80220",
+              "uid": "s:1~l:10~t:24",
+              "id": 24,
+              "location": "St. Louis",
+              "nickname": "St. Louis",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/24"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/24/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/24/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/stl/st-louis-cardinals?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=24&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Cardinals"
+            },
+            {
+              "abbreviation": "SD",
+              "color": "001d44",
+              "uid": "s:1~l:10~t:25",
+              "id": 25,
+              "location": "San Diego",
+              "nickname": "San Diego",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/25"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/25/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/25/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/sd/san-diego-padres?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=25&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Padres"
+            },
+            {
+              "abbreviation": "SF",
+              "color": "161415",
+              "uid": "s:1~l:10~t:26",
+              "id": 26,
+              "location": "San Francisco",
+              "nickname": "San Francisco",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/26"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/26/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/26/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/sf/san-francisco-giants?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=26&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Giants"
+            },
+            {
+              "abbreviation": "COL",
+              "color": "220d48",
+              "uid": "s:1~l:10~t:27",
+              "id": 27,
+              "location": "Colorado",
+              "nickname": "Colorado",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/27"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/27/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/27/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/col/colorado-rockies?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=27&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Rockies"
+            },
+            {
+              "abbreviation": "MIA",
+              "color": "0081c7",
+              "uid": "s:1~l:10~t:28",
+              "id": 28,
+              "location": "Miami",
+              "nickname": "Miami",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/28"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/28/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/28/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/mia/miami-marlins?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=28&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Marlins"
+            },
+            {
+              "abbreviation": "ARI",
+              "color": "a40013",
+              "uid": "s:1~l:10~t:29",
+              "id": 29,
+              "location": "Arizona",
+              "nickname": "Arizona",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/29"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/29/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/29/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/ari/arizona-diamondbacks?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=29&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Diamondbacks"
+            },
+            {
+              "abbreviation": "TB",
+              "color": "002454",
+              "uid": "s:1~l:10~t:30",
+              "id": 30,
+              "location": "Tampa Bay",
+              "nickname": "Tampa Bay",
+              "links": {
+                "api": {
+                  "teams": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/30"
+                  },
+                  "news": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/30/news"
+                  },
+                  "notes": {
+                    "href": "http://api.espn.com/v1/sports/baseball/mlb/teams/30/news/notes"
+                  }
+                },
+                "web": {
+                  "teams": {
+                    "href": "http://espn.go.com/mlb/team/_/name/tb/tampa-bay-rays?ex_cid=espnapi_public"
+                  }
+                },
+                "mobile": {
+                  "teams": {
+                    "href": "http://m.espn.go.com/mlb/clubhouse?teamId=30&ex_cid=espnapi_public"
+                  }
+                }
+              },
+              "name": "Rays"
+            }
+          ],
+          "groupId": 9,
+          "name": "Major League Baseball"
+        }
+      ]
+    }
+  ],
+  "resultsOffset": 0,
+  "timestamp": "2013-10-15T15:51:19Z",
+  "resultsCount": 30,
+  "status": "success",
+  "resultsLimit": 50
+}

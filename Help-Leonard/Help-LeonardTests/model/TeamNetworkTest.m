@@ -7,8 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Team+Network.h"
+#import "CoreDataHelper.h"
 #import "FixtureHelper.h"
+#import "Team+Network.h"
 
 @interface TeamNetworkTest : XCTestCase
 {
@@ -20,37 +21,12 @@
 
 @implementation TeamNetworkTest
 
-- (NSString *)dbStore
-{
-    NSString *bundleID = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
-    return [NSString stringWithFormat:@"%@.sqlite", bundleID];
-}
-
-- (void)cleanAndResetupDB
-{
-    NSString *dbStore = [self dbStore];
-    NSError *error = nil;
-    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
-    [MagicalRecord cleanUp];
-    
-    if ([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]){
-        //        [self setupDB];
-    }
-    else{
-        NSLog(@"An error has occurred while deleting %@", dbStore);
-        NSLog(@"Error description: %@", error.description);
-    }
-}
-
 - (void)setUp
 {
     [super setUp];
     
-    [self cleanAndResetupDB];
-    
-    [MagicalRecord setDefaultModelFromClass:[Team class]];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
-    managedObjectContext = [NSManagedObjectContext MR_defaultContext];
+    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    managedObjectContext = coreDataHelper.managedObjectContext;
     
     fixtureHelper = [[FixtureHelper alloc] init];
 }
@@ -237,6 +213,30 @@
     [team updateWithInfo:teamInfo];
     
     XCTAssertEqualObjects(team.mobileURL, expectedMobileURL, @"team mobileURL property should match expectedMobileURL");
+}
+
+#pragma mark - parseTeamsJSON
+
+- (void)testParseTeamsJSONShouldReturnANonNilObject
+{
+    NSData *testData = [fixtureHelper validDataFromTeamsFixture];
+    id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
+    NSArray *teamsJSON = [Team teamsJSONFromResponse:json];
+    
+    id teams = [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];
+
+    XCTAssertNotNil(teams, @"teams should NOT be nil");
+}
+
+- (void)testParseTeamsJSONShouldReturnAnArray
+{
+    NSData *testData = [fixtureHelper validDataFromTeamsFixture];
+    id json = [NSJSONSerialization JSONObjectWithData:testData options:NSJSONReadingMutableLeaves error:nil];
+    NSArray *teamsJSON = [Team teamsJSONFromResponse:json];
+    
+    id teams = [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];
+    
+    XCTAssertTrue([teams isKindOfClass:[NSArray class]], @"teams should be an NSArray");
 }
 
 - (void)testParseTeamsJSONReturnsExpectedCount

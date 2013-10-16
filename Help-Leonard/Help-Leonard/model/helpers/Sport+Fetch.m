@@ -24,19 +24,14 @@
     return ids;
 }
 
-+ (NSArray *)fetchSportsWithIDs:(NSArray *)ids inContext:(NSManagedObjectContext *)context
++ (NSArray *)localSportsFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context
 {
+    NSArray *ids = [Sport IDsFromJSON:json];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid IN %@", ids];
     return [Sport MR_findAllWithPredicate:predicate inContext:context];
 }
 
-+ (NSArray *)localSportsFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context
-{
-    NSArray *ids = [Sport IDsFromJSON:json];
-    return [Sport fetchSportsWithIDs:ids inContext:context];
-}
-
-+ (NSArray *)fetchSportsInAlphabeticalOrder
++ (NSArray *)fetchSortedSports
 {
     NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
     NSFetchRequest *request = [Sport MR_requestAllInContext:defaultContext];

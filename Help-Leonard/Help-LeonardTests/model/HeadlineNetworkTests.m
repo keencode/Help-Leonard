@@ -7,8 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Headline+Network.h"
+#import "CoreDataHelper.h"
 #import "FixtureHelper.h"
+#import "Headline+Network.h"
 #import "KCDateHelper.h"
 
 @interface HeadlineNetworkTests : XCTestCase
@@ -21,37 +22,12 @@
 
 @implementation HeadlineNetworkTests
 
-- (NSString *)dbStore
-{
-    NSString *bundleID = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
-    return [NSString stringWithFormat:@"%@.sqlite", bundleID];
-}
-
-- (void)cleanAndResetupDB
-{
-    NSString *dbStore = [self dbStore];
-    NSError *error = nil;
-    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
-    [MagicalRecord cleanUp];
-    
-    if ([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]){
-        //        [self setupDB];
-    }
-    else{
-        NSLog(@"An error has occurred while deleting %@", dbStore);
-        NSLog(@"Error description: %@", error.description);
-    }
-}
-
 - (void)setUp
 {
     [super setUp];
     
-    [self cleanAndResetupDB];
-    
-    [MagicalRecord setDefaultModelFromClass:[Headline class]];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
-    managedObjectContext = [NSManagedObjectContext MR_defaultContext];
+    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    managedObjectContext = coreDataHelper.managedObjectContext;
     
     fixtureHelper = [[FixtureHelper alloc] init];
 }
@@ -63,6 +39,8 @@
 
     [super tearDown];
 }
+
+#pragma mark - JSONIsValid
 
 - (void)testJSONIsValidShouldReturnTrueForValidJSON
 {
@@ -93,6 +71,8 @@
     
     XCTAssertFalse(isJSONValid, @"isJSONValid should be false");
 }
+
+#pragma mark - updateWithInfo
 
 - (void)testUpdateWithInfoShouldAssignCorrectTitle
 {
@@ -190,7 +170,35 @@
     XCTAssertEqualObjects(headline.mobileURL, expectedURL, @"The mobileURL property should match expectedURL");
 }
 
-- (void)testParseJSONShouldCreateCorrectNumberOfHeadlines
+#pragma mark - parseHeadlinesJSON
+
+- (void)testParseHeadlinesJSONShouldReturnANonNilObject
+{
+    NSData *testData = [fixtureHelper validDataFromHeadlinesFixture];
+    NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:testData
+                                                             options:NSJSONReadingMutableLeaves
+                                                               error:nil];
+    NSArray *headlinesJSON = [jsonData objectForKey:@"headlines"];
+
+    id parsedHeadlines = [Headline parseHeadlinesJSON:headlinesJSON inContext:managedObjectContext];
+    
+    XCTAssertNotNil(parsedHeadlines, @"parsedHeadlines should NOT be nil");
+}
+
+- (void)testParseHeadlinesJSONShouldReturnAnArray
+{
+    NSData *testData = [fixtureHelper validDataFromHeadlinesFixture];
+    NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:testData
+                                                             options:NSJSONReadingMutableLeaves
+                                                               error:nil];
+    NSArray *headlinesJSON = [jsonData objectForKey:@"headlines"];
+    
+    id parsedHeadlines = [Headline parseHeadlinesJSON:headlinesJSON inContext:managedObjectContext];
+    
+    XCTAssertTrue([parsedHeadlines isKindOfClass:[NSArray class]], @"parsedHeadlines should be an NSArray");
+}
+
+- (void)testParseHeadlinesJSONShouldCreateCorrectNumberOfHeadlines
 {
     NSData *testData = [fixtureHelper validDataFromHeadlinesFixture];
     NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:testData

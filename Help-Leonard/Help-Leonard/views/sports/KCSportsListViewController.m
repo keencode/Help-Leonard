@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
 
-    self.sports = [Sport fetchSportsInAlphabeticalOrder];
+    self.sports = [Sport fetchSortedSports];
     
     [Sport remoteSportsOnSuccess:^(NSArray *sports) {
         self.sports = sports;

@@ -24,16 +24,11 @@
     return ids;
 }
 
-+ (NSArray *)fetchHeadlinesWithIDs:(NSArray *)ids inContext:(NSManagedObjectContext *)context
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid IN %@", ids];
-    return [Headline MR_findAllWithPredicate:predicate inContext:context];
-}
-
 + (NSArray *)localHeadlinesFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context
 {
     NSArray *ids = [Headline IDsFromJSON:json];
-    return [Headline fetchHeadlinesWithIDs:ids inContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid IN %@", ids];
+    return [Headline MR_findAllWithPredicate:predicate inContext:context];
 }
 
 + (NSArray *)fetchRecentHeadlines

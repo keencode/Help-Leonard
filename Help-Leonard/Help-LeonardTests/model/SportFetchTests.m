@@ -7,9 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "CoreDataHelper.h"
+#import "FixtureHelper.h"
 #import "Sport+Fetch.h"
 #import "Sport+Network.h"
-#import "FixtureHelper.h"
 #import "League.h"
 
 @interface SportFetchTests : XCTestCase
@@ -22,37 +23,12 @@
 
 @implementation SportFetchTests
 
-- (NSString *)dbStore
-{
-    NSString *bundleID = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
-    return [NSString stringWithFormat:@"%@.sqlite", bundleID];
-}
-
-- (void)cleanAndResetupDB
-{
-    NSString *dbStore = [self dbStore];
-    NSError *error = nil;
-    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
-    [MagicalRecord cleanUp];
-    
-    if ([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]){
-        //        [self setupDB];
-    }
-    else{
-        NSLog(@"An error has occurred while deleting %@", dbStore);
-        NSLog(@"Error description: %@", error.description);
-    }
-}
-
 - (void)setUp
 {
     [super setUp];
     
-    [self cleanAndResetupDB];
-    
-    [MagicalRecord setDefaultModelFromClass:[Sport class]];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
-    managedObjectContext = [NSManagedObjectContext MR_defaultContext];
+    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    managedObjectContext = coreDataHelper.managedObjectContext;
     
     FixtureHelper *fixtureHelper = [[FixtureHelper alloc] init];
     NSData *testData = [fixtureHelper validDataFromSportsFixture];
@@ -68,6 +44,22 @@
     sportsJSON = nil;
     
     [super tearDown];
+}
+
+#pragma mark - IDsFromJSON
+
+- (void)testIDsFromJSONShouldReturnANonNilObject
+{
+    id idsFromJSON = [Sport IDsFromJSON:sportsJSON];
+    
+    XCTAssertNotNil(idsFromJSON, @"idsFromJSON should NOT be nil");
+}
+
+- (void)testIDsFromJSONShouldReturnAnArray
+{
+    id idsFromJSON = [Sport IDsFromJSON:sportsJSON];
+    
+    XCTAssertTrue([idsFromJSON isKindOfClass:[NSArray class]], @"idsFromJSON should be an NSArray");
 }
 
 - (void)testIDsFromJSONShouldReturnExpectedCount
@@ -89,78 +81,95 @@
     XCTAssertEqualObjects(firstID, expectedFirstID, @"firstID should match expectedFirstID");
 }
 
-- (void)testFetchSportsWithIDsShouldReturnExpectedCount
+#pragma mark - localSportsFromJSON
+
+- (void)testLocalSportsWithIDsShouldReturnANonNilObject
 {
     NSArray *ids = [Sport IDsFromJSON:sportsJSON];
     Sport *sport1 = [Sport MR_createInContext:managedObjectContext];
-    sport1.uid = (NSNumber *)[ids objectAtIndex:0];
-    Sport *sport2 = [Sport MR_createInContext:managedObjectContext];
-    sport2.uid = (NSNumber *)[ids objectAtIndex:1];
-    Sport *sport3 = [Sport MR_createInContext:managedObjectContext];
-    sport3.uid = (NSNumber *)[ids objectAtIndex:2];
-    NSUInteger expectedSportsCount = 3;
+    sport1.uid = [ids objectAtIndex:0];
+
+    id sports = [Sport localSportsFromJSON:sportsJSON inContext:managedObjectContext];
     
-    NSArray *localSports = [Sport fetchSportsWithIDs:ids inContext:managedObjectContext];
-    
-    XCTAssertEqual([localSports count], expectedSportsCount, @"localSports count should equal expectedSportsCount");
+    XCTAssertNotNil(sports, @"sports should NOT be nil");
 }
 
-- (void)testFetchSportsWithIDsShouldReturnExpectedHeadlines
+- (void)testLocalSportsWithIDsShouldReturnAnArray
 {
     NSArray *ids = [Sport IDsFromJSON:sportsJSON];
-    
     Sport *sport1 = [Sport MR_createInContext:managedObjectContext];
-    sport1.uid = (NSNumber *)[ids objectAtIndex:0];
+    sport1.uid = [ids objectAtIndex:0];
+
+    id sports = [Sport localSportsFromJSON:sportsJSON inContext:managedObjectContext];
     
-    NSArray *localSports = [Sport fetchSportsWithIDs:ids inContext:managedObjectContext];
-    
-    XCTAssertTrue([localSports containsObject:sport1], @"localSports should contain sport1");
+    XCTAssertTrue([sports isKindOfClass:[NSArray class]], @"sports should be an NSArray");
 }
 
 - (void)testLocalSportsFromJSONShouldReturnExpectedCount
 {
     NSArray *ids = [Sport IDsFromJSON:sportsJSON];
     Sport *sport1 = [Sport MR_createInContext:managedObjectContext];
-    sport1.uid = (NSNumber *)[ids objectAtIndex:0];
+    sport1.uid = [ids objectAtIndex:0];
     Sport *sport2 = [Sport MR_createInContext:managedObjectContext];
-    sport2.uid = (NSNumber *)[ids objectAtIndex:1];
+    sport2.uid = [ids objectAtIndex:1];
     Sport *sport3 = [Sport MR_createInContext:managedObjectContext];
-    sport3.uid = (NSNumber *)[ids objectAtIndex:2];
+    sport3.uid = [ids objectAtIndex:2];
     NSUInteger expectedSportsCount = 3;
     
-    NSArray *localSports = [Sport localSportsFromJSON:sportsJSON
-                                               inContext:managedObjectContext];
+    NSArray *sports = [Sport localSportsFromJSON:sportsJSON inContext:managedObjectContext];
     
-    XCTAssertEqual([localSports count], expectedSportsCount, @"localSports count should equal expectedSportsCount");
+    XCTAssertEqual([sports count], expectedSportsCount, @"sports count should equal expectedSportsCount");
 }
 
-- (void)testFetchLocalSportsShouldReturnExpectedCount
+#pragma mark - fetchSortedSports
+
+- (void)testFetchSortedSportsShouldReturnANonNilObject
+{
+    [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
+    
+    id sports = [Sport fetchSortedSports];
+
+    XCTAssertNotNil(sports, @"sports should NOT be nil");
+}
+
+- (void)testFetchSortedSportsWithIDsShouldReturnAnArray
+{
+    [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
+    
+    id sports = [Sport fetchSortedSports];
+    
+    XCTAssertTrue([sports isKindOfClass:[NSArray class]], @"sports should be an NSArray");
+}
+
+- (void)testFetchSortedSportsShouldReturnExpectedCount
 {
     [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
     NSUInteger expectedSportsCount = [sportsJSON count];
     
-    NSArray *localSports = [Sport fetchSportsInAlphabeticalOrder];
+    NSArray *sports = [Sport fetchSortedSports];
     
-    XCTAssertEqual([localSports count], expectedSportsCount, @"localSports count should equal expectedSportsCount");
+    XCTAssertEqual([sports count], expectedSportsCount, @"sports count should equal expectedSportsCount");
 }
 
-- (void)testFetchLocalSportsShouldReturnNamesInAlphabeticalOrder
+- (void)testFetchSortedSportsShouldReturnNamesInAlphabeticalOrder
 {
     [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
     
-    NSArray *localSports = [Sport fetchSportsInAlphabeticalOrder];
-    Sport *firstSport = [localSports objectAtIndex:0];
-    Sport *secondSport = [localSports objectAtIndex:2];
+    NSArray *sports = [Sport fetchSortedSports];
+    Sport *firstSport = [sports objectAtIndex:0];
+    Sport *secondSport = [sports objectAtIndex:2];
     
     XCTAssertTrue([firstSport.name compare:secondSport.name] == NSOrderedAscending, @"firstSport name should come before secondSport name");
 }
+
+#pragma mark - sortedLeagues
 
 - (void)testSortedLeaguesShouldReturnArraySortedInAlphabeticalOrder
 {
     [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
     
-    NSArray *localSports = [Sport fetchSportsInAlphabeticalOrder];
-    Sport *sport = [localSports objectAtIndex:1];
+    NSArray *sports = [Sport fetchSortedSports];
+    Sport *sport = [sports objectAtIndex:1];
     NSArray *sortedLeagues = [sport sortedLeagues];
     League *league1 = [sortedLeagues objectAtIndex:0];
     League *league2 = [sortedLeagues objectAtIndex:1];

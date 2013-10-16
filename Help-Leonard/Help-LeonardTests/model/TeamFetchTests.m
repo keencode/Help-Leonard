@@ -7,9 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "CoreDataHelper.h"
+#import "FixtureHelper.h"
 #import "Team+Fetch.h"
 #import "Team+Network.h"
-#import "FixtureHelper.h"
 
 @interface TeamFetchTests : XCTestCase
 {
@@ -21,37 +22,12 @@
 
 @implementation TeamFetchTests
 
-- (NSString *)dbStore
-{
-    NSString *bundleID = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
-    return [NSString stringWithFormat:@"%@.sqlite", bundleID];
-}
-
-- (void)cleanAndResetupDB
-{
-    NSString *dbStore = [self dbStore];
-    NSError *error = nil;
-    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
-    [MagicalRecord cleanUp];
-    
-    if ([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]){
-        //        [self setupDB];
-    }
-    else{
-        NSLog(@"An error has occurred while deleting %@", dbStore);
-        NSLog(@"Error description: %@", error.description);
-    }
-}
-
 - (void)setUp
 {
     [super setUp];
     
-    [self cleanAndResetupDB];
-    
-    [MagicalRecord setDefaultModelFromClass:[Team class]];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
-    managedObjectContext = [NSManagedObjectContext MR_defaultContext];
+    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    managedObjectContext = coreDataHelper.managedObjectContext;
     
     FixtureHelper *fixtureHelper = [[FixtureHelper alloc] init];
     NSData *testData = [fixtureHelper validDataFromTeamsFixture];
@@ -79,6 +55,22 @@
     [super tearDown];
 }
 
+#pragma mark - IDsFromJSON
+
+- (void)testIDsFromJSONhouldReturnANonNilObject
+{
+    id idsFromJSON = [Team IDsFromJSON:teamsJSON];
+    
+    XCTAssertNotNil(idsFromJSON, @"idsFromJSON should NOT be nil");
+}
+
+- (void)testIDsFromJSONShouldReturnAnArray
+{
+    id idsFromJSON = [Team IDsFromJSON:teamsJSON];
+    
+    XCTAssertTrue([idsFromJSON isKindOfClass:[NSArray class]], @"idsFromJSON should be an NSArray");
+}
+
 - (void)testIDsFromJSONShouldReturnExpectedCount
 {
     NSUInteger expectedIDsCount = [teamsJSON count];
@@ -98,16 +90,31 @@
     XCTAssertEqualObjects(firstID, expectedFirstID, @"firstID should match expectedFirstID");
 }
 
-- (void)testFetchTeamsWithIDsShouldReturnExpectedHeadlines
+#pragma mark - localTeamsFromJSON
+
+- (void)testLocalTeamsFromJSONShouldReturnANonNilObject
+{
+    id teams = [Team localTeamsFromJSON:teamsJSON inContext:managedObjectContext];
+    
+    XCTAssertNotNil(teams, @"teams should NOT be nil");
+}
+
+- (void)testLocalTeamsFromJSONShouldReturnAnArray
+{
+    id teams = [Team localTeamsFromJSON:teamsJSON inContext:managedObjectContext];
+    
+    XCTAssertTrue([teams isKindOfClass:[NSArray class]], @"teams should be an NSArray");
+}
+
+- (void)testLocalTeamsFromJSONShouldReturnExpectedTeam
 {
     NSArray *ids = [Team IDsFromJSON:teamsJSON];
-    
     Team *team1 = [Team MR_createInContext:managedObjectContext];
-    team1.uid = (NSString *)[ids objectAtIndex:0];
+    team1.uid = [ids objectAtIndex:0];
     
-    NSArray *localTeams = [Team fetchTeamsWithIDs:ids inContext:managedObjectContext];
+    NSArray *teams = [Team localTeamsFromJSON:teamsJSON inContext:managedObjectContext];
     
-    XCTAssertTrue([localTeams containsObject:team1], @"localTeams should contain team1");
+    XCTAssertTrue([teams containsObject:team1], @"teams should contain team1");
 }
 
 - (void)testLocalTeamsFromJSONShouldReturnExpectedCount
@@ -121,21 +128,12 @@
     team3.uid = (NSString *)[ids objectAtIndex:2];
     NSUInteger expectedTeamsCount = 3;
     
-    NSArray *localTeams = [Team localTeamsFromJSON:teamsJSON inContext:managedObjectContext];
+    NSArray *teams = [Team localTeamsFromJSON:teamsJSON inContext:managedObjectContext];
     
-    XCTAssertEqual([localTeams count], expectedTeamsCount, @"localTeams count should equal expectedTeamsCount");
+    XCTAssertEqual([teams count], expectedTeamsCount, @"teams count should equal expectedTeamsCount");
 }
 
-- (void)testFetchTeamsFromJSONShouldReturnExpectedCount
-{
-    [Team parseTeamsJSON:teamsJSON inContext:managedObjectContext];
-    NSUInteger expectedTeamsCount = [teamsJSON count];
-    
-    NSArray *ids = [Team IDsFromJSON:teamsJSON];
-    NSArray *localTeams = [Team fetchTeamsWithIDs:ids inContext:managedObjectContext];
-    
-    XCTAssertEqual([localTeams count], expectedTeamsCount, @"localTeams count should equal expectedTeamsCount");
-}
+#pragma mark - sortedTeamsWithIDs
 
 - (void)testSortedTeamsWithIDsShouldReturnTeamsInAlphabeticalOrder
 {
@@ -148,6 +146,8 @@
     
     XCTAssertTrue([firstTeam.name compare:secondTeam.name] == NSOrderedAscending, @"firstTeam name should come before secondTeam name");
 }
+
+#pragma mark - fetchFavoriteTeamsWithDelegate
 
 - (void)testFetchFavoriteTeamsShouldReturnAValidFetchedResultsController
 {

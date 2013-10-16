@@ -11,7 +11,6 @@
 @interface Team (Fetch)
 
 + (NSArray *)IDsFromJSON:(NSArray *)json;
-+ (NSArray *)fetchTeamsWithIDs:(NSArray *)ids inContext:(NSManagedObjectContext *)context;
 + (NSArray *)localTeamsFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context;
 + (NSArray *)sortedTeamsWithIDs:(NSArray *)ids;
 

@@ -17,23 +17,18 @@
     NSMutableArray *ids = [NSMutableArray arrayWithCapacity:[json count]];
     
     for (NSDictionary *infoDict in json) {
-        NSNumber *tempID = [infoDict objectForKey:@"uid"];
+        NSString *tempID = [infoDict objectForKey:@"uid"];
         [ids addObject:tempID];
     }
     
     return ids;
 }
 
-+ (NSArray *)fetchTeamsWithIDs:(NSArray *)ids inContext:(NSManagedObjectContext *)context
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid IN %@", ids];
-    return [Team MR_findAllWithPredicate:predicate inContext:context];
-}
-
 + (NSArray *)localTeamsFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context
 {
     NSArray *ids = [Team IDsFromJSON:json];
-    return [Team fetchTeamsWithIDs:ids inContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid IN %@", ids];
+    return [Team MR_findAllWithPredicate:predicate inContext:context];
 }
 
 + (NSArray *)sortedTeamsWithIDs:(NSArray *)ids

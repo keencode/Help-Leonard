@@ -11,7 +11,6 @@
 @interface Headline (Fetch)
 
 + (NSArray *)IDsFromJSON:(NSArray *)json;
-+ (NSArray *)fetchHeadlinesWithIDs:(NSArray *)ids inContext:(NSManagedObjectContext *)context;
 + (NSArray *)localHeadlinesFromJSON:(NSArray *)json inContext:(NSManagedObjectContext *)context;
 + (NSArray *)fetchRecentHeadlines;
 

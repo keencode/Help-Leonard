@@ -7,8 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "League+Fetch.h"
+#import "CoreDataHelper.h"
 #import "FixtureHelper.h"
+#import "League+Fetch.h"
 
 @interface LeagueFetchTests : XCTestCase
 {
@@ -20,37 +21,12 @@
 
 @implementation LeagueFetchTests
 
-- (NSString *)dbStore
-{
-    NSString *bundleID = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
-    return [NSString stringWithFormat:@"%@.sqlite", bundleID];
-}
-
-- (void)cleanAndResetupDB
-{
-    NSString *dbStore = [self dbStore];
-    NSError *error = nil;
-    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
-    [MagicalRecord cleanUp];
-    
-    if ([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]){
-        //        [self setupDB];
-    }
-    else{
-        NSLog(@"An error has occurred while deleting %@", dbStore);
-        NSLog(@"Error description: %@", error.description);
-    }
-}
-
 - (void)setUp
 {
     [super setUp];
     
-    [self cleanAndResetupDB];
-    
-    [MagicalRecord setDefaultModelFromClass:[League class]];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
-    managedObjectContext = [NSManagedObjectContext MR_defaultContext];
+    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    managedObjectContext = coreDataHelper.managedObjectContext;
     
     FixtureHelper *fixtureHelper = [[FixtureHelper alloc] init];
     NSData *testData = [fixtureHelper validDataFromSportsFixture];
@@ -66,6 +42,22 @@
     sportsJSON = nil;
     
     [super tearDown];
+}
+
+#pragma mark - abbreviationsFromJSON
+
+- (void)testAbbreviationsFromJSONShouldReturnANonNilObject
+{
+    id abbreviationsFromJSON = [League abbreviationsFromJSON:sportsJSON];
+    
+    XCTAssertNotNil(abbreviationsFromJSON, @"abbreviationsFromJSON should NOT be nil");
+}
+
+- (void)testAbbreviationsFromJSONShouldReturnAnArray
+{
+    id abbreviationsFromJSON = [League abbreviationsFromJSON:sportsJSON];
+    
+    XCTAssertTrue([abbreviationsFromJSON isKindOfClass:[NSArray class]], @"abbreviationsFromJSON should be an NSArray");
 }
 
 - (void)testAbbreviationsFromJSONShouldReturnExpectedCount

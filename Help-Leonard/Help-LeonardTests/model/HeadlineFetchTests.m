@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "CoreDataHelper.h"
 #import "FixtureHelper.h"
 #import "Headline+Network.h"
 #import "Headline+Fetch.h"
@@ -21,37 +22,12 @@
 
 @implementation HeadlineFetchTests
 
-- (NSString *)dbStore
-{
-    NSString *bundleID = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
-    return [NSString stringWithFormat:@"%@.sqlite", bundleID];
-}
-
-- (void)cleanAndResetupDB
-{
-    NSString *dbStore = [self dbStore];
-    NSError *error = nil;
-    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
-    [MagicalRecord cleanUp];
-    
-    if ([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]){
-//        [self setupDB];
-    }
-    else{
-        NSLog(@"An error has occurred while deleting %@", dbStore);
-        NSLog(@"Error description: %@", error.description);
-    }
-}
-
 - (void)setUp
 {
     [super setUp];
     
-    [self cleanAndResetupDB];
-    
-    [MagicalRecord setDefaultModelFromClass:[Headline class]];
-    [MagicalRecord setupCoreDataStackWithInMemoryStore];
-    managedObjectContext = [NSManagedObjectContext MR_defaultContext];
+    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    managedObjectContext = coreDataHelper.managedObjectContext;
     
     FixtureHelper *fixtureHelper = [[FixtureHelper alloc] init];
     NSData *testData = [fixtureHelper validDataFromHeadlinesFixture];
@@ -67,6 +43,22 @@
     headlinesJSON = nil;
     
     [super tearDown];
+}
+
+#pragma mark - IDsFromJSON
+
+- (void)testIDsFromJSONShouldReturnANonNilObject
+{
+    id idsFromJSON = [Headline IDsFromJSON:headlinesJSON];
+    
+    XCTAssertNotNil(idsFromJSON, @"idsFromJSON should NOT be nil");
+}
+
+- (void)testIDsFromJSONShouldReturnAnArray
+{
+    id idsFromJSON = [Headline IDsFromJSON:headlinesJSON];
+    
+    XCTAssertTrue([idsFromJSON isKindOfClass:[NSArray class]], @"idsFromJSON should be an NSArray");
 }
 
 - (void)testIDsFromJSONShouldReturnExpectedCount
@@ -88,32 +80,32 @@
     XCTAssertEqualObjects(firstID, expectedFirstID, @"firstID should match expectedFirstID");
 }
 
-- (void)testFetchHeadlinesWithIDsShouldReturnExpectedCount
+#pragma mark - localHeadlinesFromJSON
+
+- (void)testLocalHeadlinesFromJSONShouldReturnANonNilObject
 {
     NSArray *ids = [Headline IDsFromJSON:headlinesJSON];
     Headline *headline1 = [Headline MR_createInContext:managedObjectContext];
     headline1.uid = (NSNumber *)[ids objectAtIndex:0];
     Headline *headline2 = [Headline MR_createInContext:managedObjectContext];
     headline2.uid = (NSNumber *)[ids objectAtIndex:1];
-    Headline *headline3 = [Headline MR_createInContext:managedObjectContext];
-    headline3.uid = (NSNumber *)[ids objectAtIndex:2];
-    NSUInteger expectedHeadlinesCount = 3;
     
-    NSArray *localHeadlines = [Headline fetchHeadlinesWithIDs:ids inContext:managedObjectContext];
+    id headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
     
-    XCTAssertEqual([localHeadlines count], expectedHeadlinesCount, @"localHeadlines count should equal expectedHeadlinesCount");
+    XCTAssertNotNil(headlines, @"headlines should NOT be nil");
 }
 
-- (void)testFetchHeadlinesWithIDsShouldReturnExpectedHeadlines
+- (void)testLocalHeadlinesFromJSONShouldReturnAnArray
 {
     NSArray *ids = [Headline IDsFromJSON:headlinesJSON];
-    
     Headline *headline1 = [Headline MR_createInContext:managedObjectContext];
     headline1.uid = (NSNumber *)[ids objectAtIndex:0];
+    Headline *headline2 = [Headline MR_createInContext:managedObjectContext];
+    headline2.uid = (NSNumber *)[ids objectAtIndex:1];
     
-    NSArray *localHeadlines = [Headline fetchHeadlinesWithIDs:ids inContext:managedObjectContext];
+    id headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
     
-    XCTAssertTrue([localHeadlines containsObject:headline1], @"localHeadlines should contain headline1");
+    XCTAssertTrue([headlines isKindOfClass:[NSArray class]], @"headlines should be an NSArray");
 }
 
 - (void)testLocalHeadlinesFromJSONShouldReturnExpectedCount
@@ -127,10 +119,44 @@
     headline3.uid = (NSNumber *)[ids objectAtIndex:2];
     NSUInteger expectedHeadlinesCount = 3;
     
-    NSArray *localHeadlines = [Headline localHeadlinesFromJSON:headlinesJSON
-                                                     inContext:managedObjectContext];
+    NSArray *headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
     
-    XCTAssertEqual([localHeadlines count], expectedHeadlinesCount, @"localHeadlines count should equal expectedHeadlinesCount");
+    XCTAssertEqual([headlines count], expectedHeadlinesCount, @"headlines count should equal expectedHeadlinesCount");
+}
+
+- (void)testLocalHeadlinesFromJSONShouldContainExpectedHeadline
+{
+    NSArray *ids = [Headline IDsFromJSON:headlinesJSON];
+    Headline *headline1 = [Headline MR_createInContext:managedObjectContext];
+    headline1.uid = (NSNumber *)[ids objectAtIndex:0];
+    Headline *headline2 = [Headline MR_createInContext:managedObjectContext];
+    headline2.uid = (NSNumber *)[ids objectAtIndex:1];
+    Headline *headline3 = [Headline MR_createInContext:managedObjectContext];
+    headline3.uid = (NSNumber *)[ids objectAtIndex:2];
+    
+    NSArray *headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
+    
+    XCTAssertTrue([headlines containsObject:headline1], @"headlines should contain headline1");
+}
+
+#pragma mark - fetchRecentHeadlines
+
+- (void)testFetchRecentHeadlinesShouldReturnANonNilObject
+{
+    [Headline parseHeadlinesJSON:headlinesJSON inContext:managedObjectContext];
+
+    id recentHeadlines = [Headline fetchRecentHeadlines];
+    
+    XCTAssertNotNil(recentHeadlines, @"recentHeadlines should NOT be nil");
+}
+
+- (void)testFetchRecentHeadlinesShouldReturnAnArray
+{
+    [Headline parseHeadlinesJSON:headlinesJSON inContext:managedObjectContext];
+    
+    id recentHeadlines = [Headline fetchRecentHeadlines];
+    
+    XCTAssertTrue([recentHeadlines isKindOfClass:[NSArray class]], @"recentHeadlines should be an NSArray");
 }
 
 - (void)testFetchRecentHeadlinesShouldReturnExpectedCount
@@ -140,18 +166,16 @@
     
     NSArray *recentHeadlines = [Headline fetchRecentHeadlines];
     
-    XCTAssertEqual([recentHeadlines count], expectedHeadlinesCount, @"localHeadlines count should equal expectedHeadlinesCount");
+    XCTAssertEqual([recentHeadlines count], expectedHeadlinesCount, @"recentHeadlines count should equal expectedHeadlinesCount");
 }
 
-- (void)testFetchRecentHeadlinesShouldReturnHeadlinesInReverseChonologicalOrderByPublishDate
+- (void)testFetchRecentHeadlinesShouldReturnHeadlinesSortedInReverseChonologicalOrder
 {
     [Headline parseHeadlinesJSON:headlinesJSON inContext:managedObjectContext];
     
     NSArray *recentHeadlines = [Headline fetchRecentHeadlines];
     Headline *firstHeadline = [recentHeadlines objectAtIndex:0];
-    NSLog(@"firstHeadline: %@", firstHeadline.published);
     Headline *secondHeadline = [recentHeadlines objectAtIndex:1];
-    NSLog(@"secondHeadline: %@", secondHeadline.published);
     
     XCTAssertTrue(([firstHeadline.published compare:secondHeadline.published] == NSOrderedDescending), @"firstHeadline publish date should be more recent that that of secondHeadline");
 }

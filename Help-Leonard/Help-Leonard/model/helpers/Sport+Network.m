@@ -70,7 +70,7 @@
             
             [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *sports = [Sport fetchSportsInAlphabeticalOrder];
+                    NSArray *sports = [Sport fetchSortedSports];
                     successBlock(sports);
                 });
             }];
