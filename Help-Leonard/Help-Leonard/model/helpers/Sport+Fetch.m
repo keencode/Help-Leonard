@@ -36,7 +36,9 @@
     NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
     NSFetchRequest *request = [Sport MR_requestAllInContext:defaultContext];
     [request setFetchBatchSize:kBatchSize];
-    return [Sport MR_findAllSortedBy:@"name" ascending:YES inContext:defaultContext];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"leagues.@count > %d", 0];
+    return [Sport MR_findAllSortedBy:@"name" ascending:YES withPredicate:predicate];
 }
 
 - (NSArray *)sortedLeagues

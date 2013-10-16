@@ -144,11 +144,27 @@
 - (void)testFetchSortedSportsShouldReturnExpectedCount
 {
     [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
-    NSUInteger expectedSportsCount = [sportsJSON count];
+    
+    NSUInteger expectedSportsCount = 0;
+    for (NSDictionary *sportInfo in sportsJSON) {
+        if ([sportInfo objectForKey:@"leagues"]) {
+            expectedSportsCount++;
+        }
+    }
     
     NSArray *sports = [Sport fetchSortedSports];
     
     XCTAssertEqual([sports count], expectedSportsCount, @"sports count should equal expectedSportsCount");
+}
+
+- (void)testFetchSortedSportsShouldReturnLeaguesWithCountGreaterThanZero
+{
+    [Sport parseSportsJSON:sportsJSON inContext:managedObjectContext];
+    
+    NSArray *sports = [Sport fetchSortedSports];
+    Sport *sport = [sports objectAtIndex:0];
+    
+    XCTAssertTrue([sport.leagues count] > 0, @"sport.leagues count should be greater than 0");
 }
 
 - (void)testFetchSortedSportsShouldReturnNamesInAlphabeticalOrder
@@ -174,7 +190,7 @@
     League *league1 = [sortedLeagues objectAtIndex:0];
     League *league2 = [sortedLeagues objectAtIndex:1];
     
-    XCTAssertTrue([league1.name compare:league2.name] == NSOrderedAscending, @"league1 name should come before league2 name");
+    XCTAssertTrue([league1.name compare:league2.name options:NSCaseInsensitiveSearch] == NSOrderedAscending, @"league1 name should come before league2 name");
 }
 
 @end
