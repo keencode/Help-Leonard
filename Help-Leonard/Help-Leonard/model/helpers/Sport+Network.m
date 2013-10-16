@@ -69,10 +69,14 @@
             [Sport parseSportsJSON:sportsJSON inContext:backgroundContext];
             
             [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *sports = [Sport fetchSortedSports];
-                    successBlock(sports);
-                });
+                if (!error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSArray *sports = [Sport fetchSortedSports];
+                        successBlock(sports);
+                    });
+                } else {
+                    failureBlock(error);
+                }
             }];
         });
     } else {

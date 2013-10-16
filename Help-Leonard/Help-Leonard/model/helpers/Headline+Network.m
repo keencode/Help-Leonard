@@ -69,10 +69,14 @@
             [Headline parseHeadlinesJSON:headlinesJSON inContext:backgroundContext];
             
             [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *headlines = [Headline fetchRecentHeadlines];
-                    successBlock(headlines);
-                });
+                if (!error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSArray *headlines = [Headline fetchRecentHeadlines];
+                        successBlock(headlines);
+                    });
+                } else {
+                    failureBlock(error);
+                }
             }];
         });
     } else {
@@ -109,7 +113,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uid == $HEADLINE_ID"];
     
     for (NSDictionary *info in json) {
-        NSNumber *tempID = (NSNumber *)[info objectForKey:@"id"];
+        NSNumber *tempID = [info objectForKey:@"id"];
         NSDictionary *variable = @{@"HEADLINE_ID" : tempID};
         NSPredicate *localPredicate = [predicate predicateWithSubstitutionVariables:variable];
         Headline *headline = nil;

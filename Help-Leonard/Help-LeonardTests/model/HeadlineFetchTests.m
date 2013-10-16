@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "CoreDataHelper.h"
+#import "CoreDataTestHelper.h"
 #import "FixtureHelper.h"
 #import "Headline+Network.h"
 #import "Headline+Fetch.h"
@@ -26,7 +26,7 @@
 {
     [super setUp];
     
-    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    CoreDataTestHelper *coreDataHelper = [[CoreDataTestHelper alloc] init];
     managedObjectContext = coreDataHelper.managedObjectContext;
     
     FixtureHelper *fixtureHelper = [[FixtureHelper alloc] init];
@@ -86,9 +86,9 @@
 {
     NSArray *ids = [Headline IDsFromJSON:headlinesJSON];
     Headline *headline1 = [Headline MR_createInContext:managedObjectContext];
-    headline1.uid = (NSNumber *)[ids objectAtIndex:0];
+    headline1.uid = [ids objectAtIndex:0];
     Headline *headline2 = [Headline MR_createInContext:managedObjectContext];
-    headline2.uid = (NSNumber *)[ids objectAtIndex:1];
+    headline2.uid = [ids objectAtIndex:1];
     
     id headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
     
@@ -99,9 +99,9 @@
 {
     NSArray *ids = [Headline IDsFromJSON:headlinesJSON];
     Headline *headline1 = [Headline MR_createInContext:managedObjectContext];
-    headline1.uid = (NSNumber *)[ids objectAtIndex:0];
+    headline1.uid = [ids objectAtIndex:0];
     Headline *headline2 = [Headline MR_createInContext:managedObjectContext];
-    headline2.uid = (NSNumber *)[ids objectAtIndex:1];
+    headline2.uid = [ids objectAtIndex:1];
     
     id headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
     
@@ -112,11 +112,11 @@
 {
     NSArray *ids = [Headline IDsFromJSON:headlinesJSON];
     Headline *headline1 = [Headline MR_createInContext:managedObjectContext];
-    headline1.uid = (NSNumber *)[ids objectAtIndex:0];
+    headline1.uid = [ids objectAtIndex:0];
     Headline *headline2 = [Headline MR_createInContext:managedObjectContext];
-    headline2.uid = (NSNumber *)[ids objectAtIndex:1];
+    headline2.uid = [ids objectAtIndex:1];
     Headline *headline3 = [Headline MR_createInContext:managedObjectContext];
-    headline3.uid = (NSNumber *)[ids objectAtIndex:2];
+    headline3.uid = [ids objectAtIndex:2];
     NSUInteger expectedHeadlinesCount = 3;
     
     NSArray *headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
@@ -128,11 +128,11 @@
 {
     NSArray *ids = [Headline IDsFromJSON:headlinesJSON];
     Headline *headline1 = [Headline MR_createInContext:managedObjectContext];
-    headline1.uid = (NSNumber *)[ids objectAtIndex:0];
+    headline1.uid = [ids objectAtIndex:0];
     Headline *headline2 = [Headline MR_createInContext:managedObjectContext];
-    headline2.uid = (NSNumber *)[ids objectAtIndex:1];
+    headline2.uid = [ids objectAtIndex:1];
     Headline *headline3 = [Headline MR_createInContext:managedObjectContext];
-    headline3.uid = (NSNumber *)[ids objectAtIndex:2];
+    headline3.uid = [ids objectAtIndex:2];
     
     NSArray *headlines = [Headline localHeadlinesFromJSON:headlinesJSON inContext:managedObjectContext];
     

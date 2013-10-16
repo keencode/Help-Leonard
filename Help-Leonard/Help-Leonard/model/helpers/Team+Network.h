@@ -15,10 +15,6 @@
                       onSuccess:(void (^)(NSArray *teams))successBlock
                       onFailure:(void (^)(NSError *error))failureBlock;
 
-//+ (void)remoteDetailsForTeamURL:(NSString *)url
-//                      onSuccess:(void (^)(NSArray *news))successBlock
-//                      onFailure:(void (^)(NSError *error))failureBlock;
-
 + (void)remoteNewsForTeamURL:(NSString *)url
                    onSuccess:(void (^)(NSArray *headlines))successBlock
                    onFailure:(void (^)(NSError *error))failureBlock;
@@ -31,6 +27,10 @@
 + (void)processJSONResponse:(NSDictionary *)json
                   onSuccess:(void (^)(NSArray *teams))successBlock
                   onFailure:(void (^)(NSError *error))failureBlock;
+
++ (void)processTeamHeadlinesJSONResponse:(NSDictionary *)json
+                               onSuccess:(void (^)(NSArray *headlines))successBlock
+                               onFailure:(void (^)(NSError *error))failureBlock;
 
 + (BOOL)JSONIsValid:(id)json;
 

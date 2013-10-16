@@ -44,7 +44,9 @@
 		B82625F9180B9C8F00750CEA /* KCTeamNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625F5180B9C8F00750CEA /* KCTeamNewsViewController.m */; };
 		B82625FA180B9C8F00750CEA /* KCTeamsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625F7180B9C8F00750CEA /* KCTeamsListViewController.m */; };
 		B8262600180BB5EA00750CEA /* Headline.m in Sources */ = {isa = PBXBuildFile; fileRef = B82625FF180BB5EA00750CEA /* Headline.m */; };
-		B82BC7B2180DF0AA00061A2C /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B82BC7B1180DF0AA00061A2C /* CoreDataHelper.m */; };
+		B82BC7B2180DF0AA00061A2C /* CoreDataTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B82BC7B1180DF0AA00061A2C /* CoreDataTestHelper.m */; };
+		B8D1EB06180E33A5000B15FE /* KCCoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D1EB05180E33A5000B15FE /* KCCoreDataHelper.m */; };
+		B8D1EB08180E38A9000B15FE /* CoreDataHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D1EB07180E38A9000B15FE /* CoreDataHelperTests.m */; };
 		B8DA94C618086C1100358659 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DA94C518086C1100358659 /* Foundation.framework */; };
 		B8DA94C818086C1100358659 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DA94C718086C1100358659 /* CoreGraphics.framework */; };
 		B8DA94CA18086C1100358659 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DA94C918086C1100358659 /* UIKit.framework */; };
@@ -138,8 +140,11 @@
 		B82625F7180B9C8F00750CEA /* KCTeamsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTeamsListViewController.m; sourceTree = "<group>"; };
 		B82625FE180BB5EA00750CEA /* Headline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Headline.h; path = model/Headline.h; sourceTree = "<group>"; };
 		B82625FF180BB5EA00750CEA /* Headline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Headline.m; path = model/Headline.m; sourceTree = "<group>"; };
-		B82BC7B0180DF0AA00061A2C /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
-		B82BC7B1180DF0AA00061A2C /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		B82BC7B0180DF0AA00061A2C /* CoreDataTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTestHelper.h; sourceTree = "<group>"; };
+		B82BC7B1180DF0AA00061A2C /* CoreDataTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTestHelper.m; sourceTree = "<group>"; };
+		B8D1EB04180E33A5000B15FE /* KCCoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KCCoreDataHelper.h; path = utils/KCCoreDataHelper.h; sourceTree = "<group>"; };
+		B8D1EB05180E33A5000B15FE /* KCCoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KCCoreDataHelper.m; path = utils/KCCoreDataHelper.m; sourceTree = "<group>"; };
+		B8D1EB07180E38A9000B15FE /* CoreDataHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataHelperTests.m; path = utils/CoreDataHelperTests.m; sourceTree = "<group>"; };
 		B8DA94C218086C1100358659 /* Help-Leonard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Help-Leonard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8DA94C518086C1100358659 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B8DA94C718086C1100358659 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -238,6 +243,8 @@
 			children = (
 				B826256A1808C3FB00750CEA /* KCDateHelper.h */,
 				B826256B1808C3FB00750CEA /* KCDateHelper.m */,
+				B8D1EB04180E33A5000B15FE /* KCCoreDataHelper.h */,
+				B8D1EB05180E33A5000B15FE /* KCCoreDataHelper.m */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -246,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				B82625741809124F00750CEA /* DateHelperTests.m */,
+				B8D1EB07180E38A9000B15FE /* CoreDataHelperTests.m */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -263,8 +271,8 @@
 		B82625771809125C00750CEA /* fixtures */ = {
 			isa = PBXGroup;
 			children = (
-				B82BC7B0180DF0AA00061A2C /* CoreDataHelper.h */,
-				B82BC7B1180DF0AA00061A2C /* CoreDataHelper.m */,
+				B82BC7B0180DF0AA00061A2C /* CoreDataTestHelper.h */,
+				B82BC7B1180DF0AA00061A2C /* CoreDataTestHelper.m */,
 				B82625781809125C00750CEA /* FixtureHelper.h */,
 				B82625791809125C00750CEA /* FixtureHelper.m */,
 				B826257A1809125C00750CEA /* headlines.json */,
@@ -647,6 +655,7 @@
 				B8DA94D218086C1100358659 /* main.m in Sources */,
 				B8F340AE180C55C300413D19 /* KCTeamViewController.m in Sources */,
 				B8262587180914C200750CEA /* KCGlobals.m in Sources */,
+				B8D1EB06180E33A5000B15FE /* KCCoreDataHelper.m in Sources */,
 				B82625B3180B605E00750CEA /* Team+Fetch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -656,13 +665,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B82625841809125C00750CEA /* HeadlineNetworkTests.m in Sources */,
+				B8D1EB08180E38A9000B15FE /* CoreDataHelperTests.m in Sources */,
 				B82625A7180B53A100750CEA /* SportNetworkTests.m in Sources */,
 				B82625831809125C00750CEA /* HeadlineFetchTests.m in Sources */,
 				B82625E0180B7E8B00750CEA /* TeamFetchTests.m in Sources */,
 				B82625751809124F00750CEA /* DateHelperTests.m in Sources */,
 				B82625C4180B696300750CEA /* LeagueFetchTests.m in Sources */,
 				B82625D4180B722800750CEA /* TeamNetworkTest.m in Sources */,
-				B82BC7B2180DF0AA00061A2C /* CoreDataHelper.m in Sources */,
+				B82BC7B2180DF0AA00061A2C /* CoreDataTestHelper.m in Sources */,
 				B826257F1809125C00750CEA /* FixtureHelper.m in Sources */,
 				B82625A9180B53B500750CEA /* SportFetchTests.m in Sources */,
 			);

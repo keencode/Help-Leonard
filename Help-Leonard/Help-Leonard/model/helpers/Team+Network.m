@@ -11,6 +11,7 @@
 #import "KCGlobals.h"
 #import "Team+Fetch.h"
 #import "Headline+Network.h"
+#import "KCCoreDataHelper.h"
 
 @implementation Team (Network)
 
@@ -78,11 +79,15 @@
             [Team parseTeamsJSON:teamsJSON inContext:backgroundContext];
             
             [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *ids = [Team IDsFromJSON:teamsJSON];
-                    NSArray *sortedTeams = [Team sortedTeamsWithIDs:ids];
-                    successBlock(sortedTeams);
-                });
+                if (!error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSArray *ids = [Team IDsFromJSON:teamsJSON];
+                        NSArray *sortedTeams = [Team sortedTeamsWithIDs:ids];
+                        successBlock(sortedTeams);
+                    });
+                } else {
+                    failureBlock(error);
+                }
             }];
         });
     } else {
@@ -173,13 +178,6 @@
     self.mobileURL = [[[[info objectForKey:@"links"] objectForKey:@"mobile"] objectForKey:@"teams"] objectForKey:@"href"];
 }
 
-//+ (void)remoteDetailsForTeamURL:(NSString *)url
-//                      onSuccess:(void (^)(NSArray *news))successBlock
-//                      onFailure:(void (^)(NSError *error))failureBlock
-//{
-//    
-//}
-
 + (void)remoteNewsForTeamURL:(NSString *)url
                    onSuccess:(void (^)(NSArray *headlines))successBlock
                    onFailure:(void (^)(NSError *error))failureBlock
@@ -202,7 +200,7 @@
                                                           options:NSJSONReadingMutableLeaves
                                                             error:&error];
                 if (!error) {
-                    [Headline processJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
+                    [Team processTeamHeadlinesJSONResponse:json onSuccess:successBlock onFailure:failureBlock];
                 } else {
                     failureBlock(error);
                 }
@@ -226,6 +224,38 @@
 + (NSString *)newsURLWithAPIKey:(NSString *)newsURL
 {
     return [NSString stringWithFormat:@"%@?apikey=%@", newsURL, kESPNAPIKey];
+}
+
++ (void)processTeamHeadlinesJSONResponse:(NSDictionary *)json
+                               onSuccess:(void (^)(NSArray *headlines))successBlock
+                               onFailure:(void (^)(NSError *error))failureBlock
+{
+    if ([Headline JSONIsValid:json]) {
+        NSArray *headlinesJSON = [json objectForKey:@"headlines"];
+        
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.keencode.helpleonard.backgroundQueue", 0);
+        dispatch_async(backgroundQueue, ^{
+            NSManagedObjectContext *backgroundContext = [NSManagedObjectContext MR_contextForCurrentThread];
+            NSArray *headlines = [Headline parseHeadlinesJSON:headlinesJSON inContext:backgroundContext];
+            NSArray *objectIDs = [KCCoreDataHelper objectIDsForManagedObjects:headlines];
+            
+            [backgroundContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                if (!error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
+                        NSArray *teamHeadlines = [KCCoreDataHelper managedObjectsForObjectIDs:objectIDs inContext:defaultContext];
+                        successBlock(teamHeadlines);
+                    });
+                } else {
+                    failureBlock(error);
+                }
+            }];
+        });
+    } else {
+        NSDictionary *userInfo = @{kUserInfoDescriptionKey : @"Invalid JSON"};
+        NSError *error = [NSError errorWithDomain:KCNetworkErrorDomain code:KCInvalidJSON userInfo:userInfo];
+        failureBlock(error);
+    }
 }
 
 - (void)addFavoriteOnSuccess:(void (^)(BOOL success))successBlock

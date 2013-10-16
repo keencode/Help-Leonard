@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Keen Code. All rights reserved.
 //
 
-#import "CoreDataHelper.h"
+#import "CoreDataTestHelper.h"
 #import "Headline.h"
 
-@implementation CoreDataHelper
+@implementation CoreDataTestHelper
 
 - (id)init
 {

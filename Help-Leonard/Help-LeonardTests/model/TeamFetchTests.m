@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "CoreDataHelper.h"
+#import "CoreDataTestHelper.h"
 #import "FixtureHelper.h"
 #import "Team+Fetch.h"
 #import "Team+Network.h"
@@ -26,7 +26,7 @@
 {
     [super setUp];
     
-    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    CoreDataTestHelper *coreDataHelper = [[CoreDataTestHelper alloc] init];
     managedObjectContext = coreDataHelper.managedObjectContext;
     
     FixtureHelper *fixtureHelper = [[FixtureHelper alloc] init];
@@ -121,11 +121,11 @@
 {
     NSArray *ids = [Team IDsFromJSON:teamsJSON];
     Team *team1 = [Team MR_createInContext:managedObjectContext];
-    team1.uid = (NSString *)[ids objectAtIndex:0];
+    team1.uid = [ids objectAtIndex:0];
     Team *team2 = [Team MR_createInContext:managedObjectContext];
-    team2.uid = (NSString *)[ids objectAtIndex:1];
+    team2.uid = [ids objectAtIndex:1];
     Team *team3 = [Team MR_createInContext:managedObjectContext];
-    team3.uid = (NSString *)[ids objectAtIndex:2];
+    team3.uid = [ids objectAtIndex:2];
     NSUInteger expectedTeamsCount = 3;
     
     NSArray *teams = [Team localTeamsFromJSON:teamsJSON inContext:managedObjectContext];

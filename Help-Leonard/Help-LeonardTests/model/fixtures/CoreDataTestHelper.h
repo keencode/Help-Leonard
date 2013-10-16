@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CoreDataHelper : NSObject
+@interface CoreDataTestHelper : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

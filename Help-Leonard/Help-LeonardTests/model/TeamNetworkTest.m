@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "CoreDataHelper.h"
+#import "CoreDataTestHelper.h"
 #import "FixtureHelper.h"
 #import "Team+Network.h"
 
@@ -25,7 +25,7 @@
 {
     [super setUp];
     
-    CoreDataHelper *coreDataHelper = [[CoreDataHelper alloc] init];
+    CoreDataTestHelper *coreDataHelper = [[CoreDataTestHelper alloc] init];
     managedObjectContext = coreDataHelper.managedObjectContext;
     
     fixtureHelper = [[FixtureHelper alloc] init];
